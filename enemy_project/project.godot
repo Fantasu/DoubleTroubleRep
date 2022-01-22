@@ -30,6 +30,10 @@ config/name="Enemy-y-y-y"
 run/main_scene="res://scenes/master.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GameEvents="*res://scenes/autoloads/gameevents.gd"
+
 [display]
 
 window/size/width=384

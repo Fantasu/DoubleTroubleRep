@@ -1,0 +1,172 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/sprites/torch/tocha_animation_sheet.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/light1.png" type="Texture" id=2]
+[ext_resource path="res://scripts/hazards/torch/torch.gd" type="Script" id=3]
+[ext_resource path="res://assets/sprites/particles/fog.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 12, 12 )
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("TochaSheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Light2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Light2D:texture_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.9 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "off"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("TochaSheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Light2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "on"
+length = 0.547
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("TochaSheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Light2D:texture_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.9, 0.8, 0.9 ]
+}
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0.297778, 0.777778, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 20.0
+gravity = Vector3( 0, -30, 0 )
+initial_velocity = 6.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = 2.99
+radial_accel_random = 0.1
+angle = -307.9
+angle_random = 1.0
+scale = 0.25
+scale_random = 0.64
+color_ramp = SubResource( 7 )
+
+[node name="Torch" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Light2D" type="Light2D" parent="."]
+visible = false
+position = Vector2( 0, -4 )
+texture = ExtResource( 2 )
+texture_scale = 0.9
+color = Color( 1, 0.313726, 0.568627, 1 )
+energy = 0.9
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -21, -18 )
+scale = Vector2( 1.65, 1.45 )
+rect = Rect2( -10, -10, 45, 45 )
+
+[node name="VillainDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VillainDetector"]
+position = Vector2( 0, -1 )
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "on"
+anims/RESET = SubResource( 2 )
+anims/off = SubResource( 3 )
+anims/on = SubResource( 4 )
+
+[node name="SmokeParticle" type="Particles2D" parent="."]
+position = Vector2( 0, -1 )
+emitting = false
+amount = 5
+lifetime = 2.0
+randomness = 0.56
+local_coords = false
+process_material = SubResource( 5 )
+texture = ExtResource( 4 )
+
+[node name="TochaSheet" type="Sprite" parent="."]
+position = Vector2( 0, -2 )
+texture = ExtResource( 1 )
+hframes = 5
+frame = 1

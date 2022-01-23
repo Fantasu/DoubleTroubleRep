@@ -3,13 +3,13 @@ extends Camera2D
 export (float, 0, 1) var decay = 0.5
 export (float) var max_roll = 0.1
 export (Vector2) var max_offset = Vector2(90, 80)
-export (NodePath) onready var target_node = get_node(target_node) 
 
 var trauma = 0
 var trauma_power = 2
+var noise_y = 0
 
 onready var noise = OpenSimplexNoise.new()
-var noise_y = 0
+onready var sfx = $AudioStreamPlayer
 
 
 func _ready():
@@ -23,12 +23,11 @@ func _ready():
 func add_trauma(amount):
 	#this will add trauma to the current trauma, the higher more shake that exists.
 	trauma = min(trauma + amount, 1.0)
+	sfx.pitch_scale = rand_range(0.7, 2.2)
+	sfx.play()
 	
 
 func _process(delta):
-	if target_node:
-		self.global_position = target_node.global_position
-	
 	if trauma:
 		trauma = max(trauma - decay * delta, 0)
 		shake()

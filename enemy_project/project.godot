@@ -33,6 +33,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GameEvents="*res://scenes/autoloads/gameevents.gd"
+Globals="*res://scenes/autoloads/globals.gd"
 
 [display]
 

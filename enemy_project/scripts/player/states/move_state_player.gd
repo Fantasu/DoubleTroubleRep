@@ -19,8 +19,6 @@ func enter(_previous_state):
 func physics_update(_delta:float) -> void:
 	actor._direction = actor.get_direction()
 	
-#	print(actor._direction)
-	
 	if actor._direction == enter_direction:
 		movement(_delta)
 	

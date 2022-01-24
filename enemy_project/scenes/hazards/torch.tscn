@@ -39,7 +39,7 @@ tracks/2/path = NodePath("Light2D:texture_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
-tracks/2/enabled = true
+tracks/2/enabled = false
 tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -137,6 +137,8 @@ anim_offset = 0.94
 anim_offset_random = 0.06
 
 [node name="Torch" type="Node2D"]
+pause_mode = 2
+z_index = -5
 script = ExtResource( 3 )
 
 [node name="Light2D" type="Light2D" parent="."]
@@ -144,7 +146,7 @@ visible = false
 position = Vector2( 0, -4 )
 texture = ExtResource( 2 )
 texture_scale = 0.9
-color = Color( 1, 0.611765, 0.756863, 1 )
+color = Color( 1, 0.482353, 0.67451, 1 )
 energy = 0.9
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
@@ -167,6 +169,7 @@ anims/on = SubResource( 4 )
 [node name="SmokeParticle" type="Particles2D" parent="."]
 material = SubResource( 8 )
 position = Vector2( 0, -1 )
+emitting = false
 amount = 5
 lifetime = 2.0
 randomness = 0.56

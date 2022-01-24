@@ -1,6 +1,11 @@
 extends Node2D
 
 
+func _ready():
+#	$CameraAnimation.start_animation()
+	pass
+
+
 func _input(event):
 	if event.is_action_pressed("ui_down"):
 		GameEvents.emit_signal("call_shake", 0.3)
@@ -12,4 +17,4 @@ func _input(event):
 		GameEvents.emit_signal("call_bars", 1)
 	
 	if event.is_action_pressed("ui_page_up"):
-		GameEvents.emit_signal("call_bars", 0)
+		$CameraAnimation.start_animation()

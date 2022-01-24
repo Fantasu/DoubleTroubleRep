@@ -2,10 +2,10 @@ extends Node2D
 
 
 func _ready():
-	$Light2D.visible = true
-	$SmokeParticle.emitting = true
 	$VisibilityNotifier2D.connect("viewport_entered", self, "on_screen_entered")
 	$VisibilityNotifier2D.connect("viewport_exited", self, "on_screen_exited")
+	$Light2D.visible = true
+	$SmokeParticle.emitting = true
 #	$VillainDetector.connect("body_entered", self, "destroy_light")
 
 

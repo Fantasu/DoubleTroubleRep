@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon_reset.png-54718e332521b62f0f91e7d4d2868890.stex"
+path="res://.import/princess.png-76a37037f58efb83f33dcae711f5af0d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/icon_reset.png"
-dest_files=[ "res://.import/icon_reset.png-54718e332521b62f0f91e7d4d2868890.stex" ]
+source_file="res://assets/sprites/princess/princess.png"
+dest_files=[ "res://.import/princess.png-76a37037f58efb83f33dcae711f5af0d.stex" ]
 
 [params]
 

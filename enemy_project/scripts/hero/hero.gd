@@ -1,27 +1,28 @@
 extends KinematicBody2D
+class_name Hero
 
 enum {STATE_MOVE, STATE_STAND, STATE_AIR}
 
 const TILE_SIZE = 16
 
-export(float) var ground_max_velocity := 8.0 * TILE_SIZE
-export(float, 0.01, 2.0) var ground_turn_time := 0.1
-export(float, 0.01, 2.0) var ground_accel_time := 0.25
-export(float, 0.01, 2.0) var ground_fric_time := 0.2
+export(float) var ground_max_velocity := 7.0 * TILE_SIZE
+export(float, 0.01, 2.0) var ground_turn_time := 0.15
+export(float, 0.01, 2.0) var ground_accel_time := 0.2
+export(float, 0.01, 2.0) var ground_fric_time := 0.15
 
-export(float) var air_max_velocity := 9.0 * TILE_SIZE
-export(float, 0.01, 5.0) var air_turn_time := 0.7
-export(float, 0.01, 5.0) var air_accel_time := 0.9
-export(float, 0.01, 5.0) var air_fric_time := 2.0
+export(float) var air_max_velocity := 7.5 * TILE_SIZE
+export(float, 0.01, 5.0) var air_turn_time := 0.25
+export(float, 0.01, 5.0) var air_accel_time := 0.5
+export(float, 0.01, 5.0) var air_fric_time := 0.87
 
-var gravity_multiplier = 3.0
-var jump_size = 2.2 * TILE_SIZE
-var fall_time = 0.75
+var gravity_multiplier = 2.5
+var jump_size = 2.4 * TILE_SIZE
+var fall_time = 0.65
 var gravity = 2 * jump_size / (pow(fall_time, 2)/2) 
 var jump_force = sqrt(2 * gravity * jump_size)
 
-export(float, 0.0, 1.0) var buffering_time := 0.35
-export(float, 0.0, 1.0) var coyote_time := 0.1
+export(float, 0.0, 1.0) var buffering_time := 0.25
+export(float, 0.0, 1.0) var coyote_time := 0.20
 
 onready var _ground_fric = ground_max_velocity / (ground_fric_time * _engine_fps) #fps
 onready var _ground_accel = ground_max_velocity / (ground_accel_time * _engine_fps) #fps
@@ -48,6 +49,7 @@ func _physics_process(delta):
 	match _actual_state:
 		STATE_STAND:
 			
+			flip_nodes()
 			_velocity.x = max(abs(_velocity.x) - _ground_fric, 0.0) * sign(_velocity.x)
 			
 			if _direction != 0:
@@ -61,7 +63,7 @@ func _physics_process(delta):
 			
 			
 		STATE_MOVE:
-			
+			flip_nodes()
 			movement(_ground_accel, _ground_turn_accel, ground_max_velocity)
 			
 			if _direction == 0.0:
@@ -74,6 +76,7 @@ func _physics_process(delta):
 				_actual_state = STATE_AIR
 		
 		STATE_AIR:
+			flip_nodes()
 			movement(_air_accel, _air_turn_accel, air_max_velocity)
 			
 			if _direction == 0.0:
@@ -83,6 +86,7 @@ func _physics_process(delta):
 				_jump_pressed = true
 			
 			if Input.is_action_just_pressed("ui_up") and coyote_time > 0 and not _was_jumped:
+				_g_multiplier = 1
 				jump()
 				
 			if (not Input.is_action_pressed("ui_up") and _was_jumped) or _velocity.y > 0:
@@ -128,3 +132,7 @@ func movement(accel:float, turn_accel:float, max_velocity:float) -> void:
 		
 		_velocity.x = clamp(_velocity.x, -max_velocity, max_velocity)
 
+
+func flip_nodes():
+	if _direction:
+		$Flip.scale.x = _direction

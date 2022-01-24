@@ -2,20 +2,26 @@ extends KinematicBody2D
 
 enum {STATE_MOVE, STATE_STAND, STATE_AIR}
 
-export(float) var ground_max_velocity := 8.0 * 16.0
+const TILE_SIZE = 16
+
+export(float) var ground_max_velocity := 8.0 * TILE_SIZE
 export(float, 0.01, 2.0) var ground_turn_time := 0.1
 export(float, 0.01, 2.0) var ground_accel_time := 0.25
 export(float, 0.01, 2.0) var ground_fric_time := 0.2
 
-export(float) var air_max_velocity := 9.0 * 16.0
+export(float) var air_max_velocity := 9.0 * TILE_SIZE
 export(float, 0.01, 5.0) var air_turn_time := 0.7
 export(float, 0.01, 5.0) var air_accel_time := 0.9
 export(float, 0.01, 5.0) var air_fric_time := 2.0
 
-export(float) var gravity := 8.0
-export(float) var jump_force := 150.0
-export(float, 0.0, 1.0) var buffering_time := 0.25
-export(float, 0.0, 1.0) var coyte_time := 0.1
+var gravity_multiplier = 3.0
+var jump_size = 2.2 * TILE_SIZE
+var fall_time = 0.75
+var gravity = 2 * jump_size / (pow(fall_time, 2)/2) 
+var jump_force = sqrt(2 * gravity * jump_size)
+
+export(float, 0.0, 1.0) var buffering_time := 0.35
+export(float, 0.0, 1.0) var coyote_time := 0.1
 
 onready var _ground_fric = ground_max_velocity / (ground_fric_time * _engine_fps) #fps
 onready var _ground_accel = ground_max_velocity / (ground_accel_time * _engine_fps) #fps
@@ -25,13 +31,15 @@ onready var _air_accel = air_max_velocity / (air_accel_time * _engine_fps) #fps
 onready var _air_turn_accel = air_max_velocity / (air_turn_time * _engine_fps) #fps
 
 onready var _default_buffering_time = buffering_time
-onready var _default_coyte_time = coyte_time
+onready var _default_coyote_time = coyote_time
+
 var _actual_state = STATE_STAND
 var _velocity := Vector2.ZERO
 var _direction := 0.0
 var _jump_pressed : bool = false
 var _was_jumped : bool = false
 var _engine_fps = Engine.iterations_per_second
+var _g_multiplier = 1
 
 
 func _physics_process(delta):
@@ -74,25 +82,29 @@ func _physics_process(delta):
 			if Input.is_action_just_pressed("ui_up"):
 				_jump_pressed = true
 			
-			if Input.is_action_just_pressed("ui_up") and coyte_time > 0 and not _was_jumped:
+			if Input.is_action_just_pressed("ui_up") and coyote_time > 0 and not _was_jumped:
 				jump()
+				
+			if (not Input.is_action_pressed("ui_up") and _was_jumped) or _velocity.y > 0:
+				_g_multiplier = gravity_multiplier
 			
-			coyte_time -= delta
+			coyote_time -= delta
 			
 			if _jump_pressed:
 				buffering_time -= delta
 			
 			
 			if is_on_floor():
+				_was_jumped = false
 				if _jump_pressed and buffering_time > 0:
 					jump()
 				_jump_pressed = false
-				_was_jumped = false
 				buffering_time = _default_buffering_time
-				coyte_time = _default_coyte_time
+				coyote_time = _default_coyote_time
+				_g_multiplier = 1
 				_actual_state = STATE_STAND
 			
-	_velocity.y += gravity
+	_velocity.y += gravity * delta * _g_multiplier
 	
 	_velocity = move_and_slide(_velocity, Vector2.UP)
 

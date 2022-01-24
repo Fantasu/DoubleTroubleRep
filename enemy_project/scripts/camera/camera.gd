@@ -4,6 +4,8 @@ export (float, 0, 1) var decay = 0.5
 export (float) var max_roll = 0.1
 export (Vector2) var max_offset = Vector2(90, 80)
 
+export (NodePath) onready var target_node = get_node(target_node)
+
 var trauma = 0
 var trauma_power = 2
 var noise_y = 0

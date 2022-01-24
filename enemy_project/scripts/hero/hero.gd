@@ -12,16 +12,16 @@ export(float, 0.01, 2.0) var ground_fric_time := 0.15
 
 export(float) var air_max_velocity := 7.5 * TILE_SIZE
 export(float, 0.01, 5.0) var air_turn_time := 0.25
-export(float, 0.01, 5.0) var air_accel_time := 0.5
-export(float, 0.01, 5.0) var air_fric_time := 0.87
+export(float, 0.01, 5.0) var air_accel_time := 0.55
+export(float, 0.01, 5.0) var air_fric_time := 0.75
 
-var gravity_multiplier = 2.5
-var jump_size = 2.4 * TILE_SIZE
+var gravity_multiplier = 2.75
+var jump_size = 2.2 * TILE_SIZE
 var fall_time = 0.65
 var gravity = 2 * jump_size / (pow(fall_time, 2)/2) 
 var jump_force = sqrt(2 * gravity * jump_size)
 
-export(float, 0.0, 1.0) var buffering_time := 0.25
+export(float, 0.0, 1.0) var buffering_time := 0.20
 export(float, 0.0, 1.0) var coyote_time := 0.20
 
 onready var _ground_fric = ground_max_velocity / (ground_fric_time * _engine_fps) #fps

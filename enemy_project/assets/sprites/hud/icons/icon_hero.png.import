@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tocha_animation_sheet.png-d1218f3b20fade208a21e592c34e7c20.stex"
+path="res://.import/icon_hero.png-f5bb1bc288e3a71414fee828f90ad84d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/torch/tocha_animation_sheet.png"
-dest_files=[ "res://.import/tocha_animation_sheet.png-d1218f3b20fade208a21e592c34e7c20.stex" ]
+source_file="res://assets/sprites/hud/icons/icon_hero.png"
+dest_files=[ "res://.import/icon_hero.png-f5bb1bc288e3a71414fee828f90ad84d.stex" ]
 
 [params]
 

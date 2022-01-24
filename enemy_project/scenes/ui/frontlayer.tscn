@@ -4,18 +4,17 @@
 [ext_resource path="res://assets/sprites/hud/icons/icon_reset.png" type="Texture" id=2]
 [ext_resource path="res://scripts/ui/frontlayer.gd" type="Script" id=3]
 [ext_resource path="res://assets/sprites/hud/progressbar/progressbar.png" type="Texture" id=4]
-[ext_resource path="res://assets/sprites/hud/icons/hero_icon.png" type="Texture" id=5]
-[ext_resource path="res://assets/sprites/hud/icons/villainicon.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/hud/icons/icon_hero.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/hud/icons/icon_villain.png" type="Texture" id=6]
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 1 )
-shader_param/color = Color( 0, 0, 0, 1 )
-shader_param/multiplier = 0.282
-shader_param/softness = 0.975
+shader_param/color = Color( 0.0156863, 0, 0.0705882, 1 )
+shader_param/multiplier = 0.444
+shader_param/softness = 0.828
 
 [sub_resource type="Animation" id=96]
 resource_name = "close_bars"
-length = 1.355
 tracks/0/type = "value"
 tracks/0/path = NodePath("Top:rect_position")
 tracks/0/interp = 1
@@ -23,7 +22,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.6, 1.3 ),
+"times": PoolRealArray( 0.4, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, -28 ), Vector2( 0, 0 ) ]
@@ -35,7 +34,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.6, 1.3 ),
+"times": PoolRealArray( 0.4, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, 216 ), Vector2( 0, 188 ) ]
@@ -47,7 +46,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -138,6 +137,7 @@ size_flags_vertical = 15
 texture = ExtResource( 2 )
 
 [node name="TextureProgress" type="TextureProgress" parent="Ui/MarginContainer"]
+visible = false
 margin_left = 35.0
 margin_top = 5.0
 margin_right = 349.0
@@ -148,14 +148,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Villainicon2" type="Sprite" parent="Ui/MarginContainer/TextureProgress"]
-position = Vector2( 132, 10 )
-texture = ExtResource( 6 )
-
-[node name="Villainicon" type="Sprite" parent="Ui/MarginContainer/TextureProgress"]
-position = Vector2( 47, 8 )
-scale = Vector2( 1.5, 1.5 )
+[node name="IconHero" type="Sprite" parent="Ui/MarginContainer/TextureProgress"]
+position = Vector2( 44, 6 )
 texture = ExtResource( 5 )
+
+[node name="IconVillain" type="Sprite" parent="Ui/MarginContainer/TextureProgress"]
+position = Vector2( 167, 8 )
+texture = ExtResource( 6 )
 
 [node name="Begin" type="Position2D" parent="Ui/MarginContainer/TextureProgress"]
 position = Vector2( 19, 8 )

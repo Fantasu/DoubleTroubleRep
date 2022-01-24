@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/villainicon.png-ae061551085909c1afafca1f27a3c838.stex"
+path="res://.import/icon_villain.png-62884efd7615ee0fa46cd75434b77d78.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/hud/icons/villainicon.png"
-dest_files=[ "res://.import/villainicon.png-ae061551085909c1afafca1f27a3c838.stex" ]
+source_file="res://assets/sprites/hud/icons/icon_villain.png"
+dest_files=[ "res://.import/icon_villain.png-62884efd7615ee0fa46cd75434b77d78.stex" ]
 
 [params]
 

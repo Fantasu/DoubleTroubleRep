@@ -15,8 +15,9 @@ export(float, 0.01, 5.0) var air_turn_time := 0.25
 export(float, 0.01, 5.0) var air_accel_time := 0.55
 export(float, 0.01, 5.0) var air_fric_time := 0.75
 
-var gravity_multiplier = 2.75
 var jump_size = 2.2 * TILE_SIZE
+var min_jump_size = 1.1 * TILE_SIZE
+var gravity_multiplier = jump_size/min_jump_size
 var fall_time = 0.65
 var gravity = 2 * jump_size / (pow(fall_time, 2)/2) 
 var jump_force = sqrt(2 * gravity * jump_size)

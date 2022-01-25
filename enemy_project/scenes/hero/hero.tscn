@@ -5,8 +5,9 @@
 [ext_resource path="res://assets/sprites/hero/hero.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/particles/fog.png" type="Texture" id=4]
 
-[sub_resource type="RectangleShape2D" id=45]
-extents = Vector2( 6.60712, 8.70134 )
+[sub_resource type="CapsuleShape2D" id=61]
+radius = 7.248
+height = 2.558
 
 [sub_resource type="CanvasItemMaterial" id=48]
 particles_animation = true
@@ -80,8 +81,8 @@ transitions = [ "stand", "jump", SubResource( 55 ), "walk", "stand", SubResource
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.0293045, 0.319024 )
-shape = SubResource( 45 )
+position = Vector2( -0.154305, 0.819024 )
+shape = SubResource( 61 )
 
 [node name="Light2D" type="Light2D" parent="."]
 position = Vector2( -0.353573, -6.98121 )

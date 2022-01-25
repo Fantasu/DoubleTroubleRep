@@ -35,13 +35,16 @@ onready var _air_turn_accel = air_max_velocity / (air_turn_time * _engine_fps) #
 onready var _default_buffering_time = buffering_time
 onready var _default_coyote_time = coyote_time
 
+var _initial_fall_pos := 2.0
+var _fall_distance := 0.0
+var _g_multiplier := 1.0
+var _direction := 0.0
 var _actual_state = STATE_STAND
 var _velocity := Vector2.ZERO
-var _direction := 0.0
+var _first_fall : bool = false
 var _jump_pressed : bool = false
 var _was_jumped : bool = false
 var _engine_fps = Engine.iterations_per_second
-var _g_multiplier = 1
 
 
 func _physics_process(delta):
@@ -82,6 +85,7 @@ func stand_state(delta):
 func air_state(delta):
 	flip_nodes()
 	movement(_air_accel, _air_turn_accel, air_max_velocity)
+	calculate_fall_distance()
 	
 	if _direction == 0.0:
 		_velocity.x = max(abs(_velocity.x) - _air_fric, 0.0) * sign(_velocity.x)
@@ -110,15 +114,35 @@ func air_state(delta):
 		buffering_time = _default_buffering_time
 		coyote_time = _default_coyote_time
 		_g_multiplier = 1
-		_actual_state = STATE_STAND
-	
+		_fall_distance = 0.0
+		_actual_state = STATE_MOVE
 
+
+func calculate_fall_distance() -> void:
+	if _velocity.y > 0 and not _first_fall:
+		_initial_fall_pos = self.global_position.y
+		_first_fall = true
+	
+	elif _velocity.y > 0 and _first_fall:
+		_fall_distance = (self.global_position.y - _initial_fall_pos)
+	
+	else:
+		_first_fall = false
+		_fall_distance = 0.0
+
+
+var flip_time = 0.1
 func move_state(delta):
 	flip_nodes()
 	movement(_ground_accel, _ground_turn_accel, ground_max_velocity)
 		
 	if _direction == 0.0:
-		_actual_state = STATE_STAND
+		flip_time -= delta
+		if flip_time < 0:
+			_actual_state = STATE_STAND
+	
+	else:
+		flip_time = 0.1
 	
 	if Input.is_action_just_pressed("ui_up") and is_on_floor():
 		jump()

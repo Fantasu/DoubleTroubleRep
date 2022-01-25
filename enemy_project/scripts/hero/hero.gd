@@ -11,6 +11,7 @@ func _ready():
 
 	
 func manage_animations():
+	
 	if _actual_state == STATE_STAND:
 		animation_playback.travel("stand")
 		$Flip/WalkParticle.emitting = false
@@ -20,8 +21,9 @@ func manage_animations():
 		$Flip/WalkParticle.emitting = true
 	
 	elif _actual_state == STATE_AIR:
-		if _velocity.y > 0:
+		if (_velocity.y > 0 and _was_jumped) or (_fall_distance > min_jump_size):
 			animation_playback.travel('fall')
-		else:
+		elif _velocity.y < 0 :
 			animation_playback.travel('jump')
+		
 		$Flip/WalkParticle.emitting = false

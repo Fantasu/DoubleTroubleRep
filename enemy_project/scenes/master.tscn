@@ -1,4 +1,4 @@
-[gd_scene load_steps=203 format=2]
+[gd_scene load_steps=202 format=2]
 
 [ext_resource path="res://assets/sprites/tilemaps/tilemap1.png" type="Texture" id=1]
 [ext_resource path="res://scenes/ui/frontlayer.tscn" type="PackedScene" id=2]
@@ -14,7 +14,6 @@
 [ext_resource path="res://scenes/hazards/button.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/villain/villain.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/camera/cameraanimation.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/hero/hero.tscn" type="PackedScene" id=15]
 
 [sub_resource type="TileSet" id=47]
 0/name = "background1.png 0"
@@ -1211,7 +1210,7 @@ position = Vector2( 286, 122 )
 activate_nodepaths_list = [ NodePath("../Door") ]
 
 [node name="Door" parent="." instance=ExtResource( 6 )]
-position = Vector2( 329, 80 )
+position = Vector2( 313, 316 )
 
 [node name="Start&End" type="Node2D" parent="."]
 
@@ -1276,8 +1275,5 @@ begin = NodePath("../Start&End/Start_Position")
 end = NodePath("../Start&End/EndZone")
 
 [node name="Villain" parent="." instance=ExtResource( 13 )]
-position = Vector2( 106, 140 )
+position = Vector2( 55, 120 )
 active_camera = true
-
-[node name="Hero" parent="." instance=ExtResource( 15 )]
-position = Vector2( -48, 289 )

@@ -12,11 +12,8 @@ func _ready():
 	$ShakeCamera.current = active_camera
 
 
-func _physics_process(delta):
-	print(_actual_state)
-
-
 func manage_animations():
+	
 	if _actual_state == STATE_STAND:
 		animation_playback.travel("stand")
 		
@@ -26,9 +23,9 @@ func manage_animations():
 		
 	
 	elif _actual_state == STATE_AIR:
-		if _velocity.y > 0:
+		if (_velocity.y > 0 and _was_jumped) or (_fall_distance > min_jump_size):
 			animation_playback.travel('fall')
-		else:
+		elif _velocity.y < 0 :
 			animation_playback.travel('jump')
 
 		
@@ -43,3 +40,10 @@ func destroy_tiles():
 			var tile_pos = collider.world_to_map(side_raycast.get_collision_point())
 			collider.set_cellv(tile_pos, -1)
 			collider.update_bitmask_region(side_raycast.get_collision_point())
+
+
+func _process(delta):
+	destroy_tiles()
+
+
+

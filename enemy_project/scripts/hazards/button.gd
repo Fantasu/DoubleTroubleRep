@@ -13,7 +13,7 @@ func _ready():
 
 
 func on_body_press(body):
-	if body is Hero && was_activated == false:
+	if body is Villain && was_activated == false:
 #		$AnimationPlayer.play("pressbutton")
 		for node in activate_nodes:
 			if node.has_method("activate"):

@@ -15,8 +15,8 @@ func _ready():
 	GameEvents.connect("call_bars", self, "hide_or_show")
 	if target is Hero:
 		$Ui/Icon.texture = hero_sprite
-#	elif target is Villain:
-#		$Icon.texture = villain_sprite
+	elif target is Villain:
+		$Ui/Icon.texture = villain_sprite
 	$Ui/Icon.global_position = $Ui/Begin.global_position
 
 

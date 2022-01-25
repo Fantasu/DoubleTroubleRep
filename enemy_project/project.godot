@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/hero/hero.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "Villain",
+"language": "GDScript",
+"path": "res://scripts/villain/villain.gd"
+}, {
 "base": "Area2D",
 "class": "_Button",
 "language": "GDScript",
@@ -21,6 +26,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Hero": "",
+"Villain": "",
 "_Button": ""
 }
 

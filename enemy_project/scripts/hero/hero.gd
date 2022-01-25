@@ -17,7 +17,6 @@ export(float, 0.01, 5.0) var air_fric_time := 0.75
 
 var jump_size = 2.2 * TILE_SIZE
 var min_jump_size = 1.1 * TILE_SIZE
-var gravity_multiplier = jump_size/min_jump_size
 var fall_time = 0.65
 var gravity = 2 * jump_size / (pow(fall_time, 2)/2) 
 var jump_force = sqrt(2 * gravity * jump_size)
@@ -25,6 +24,7 @@ var jump_force = sqrt(2 * gravity * jump_size)
 export(float, 0.0, 1.0) var buffering_time := 0.20
 export(float, 0.0, 1.0) var coyote_time := 0.20
 
+onready var _gravity_multiplier = jump_size/min_jump_size
 onready var _ground_fric = ground_max_velocity / (ground_fric_time * _engine_fps) #fps
 onready var _ground_accel = ground_max_velocity / (ground_accel_time * _engine_fps) #fps
 onready var _ground_turn_accel = ground_max_velocity / (ground_turn_time * _engine_fps) #fps
@@ -91,7 +91,7 @@ func _physics_process(delta):
 				jump()
 				
 			if (not Input.is_action_pressed("ui_up") and _was_jumped) or _velocity.y > 0:
-				_g_multiplier = gravity_multiplier
+				_g_multiplier = _gravity_multiplier
 			
 			coyote_time -= delta
 			

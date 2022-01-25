@@ -16,7 +16,9 @@ __meta__ = {
 "_edit_horizontal_guides_": [ -58.0 ]
 }
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Flip" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Flip"]
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

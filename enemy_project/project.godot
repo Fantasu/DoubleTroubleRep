@@ -10,11 +10,16 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "KinematicBody2D",
+"class": "Actor",
+"language": "GDScript",
+"path": "res://scripts/actor/actor.gd"
+}, {
+"base": "Actor",
 "class": "Hero",
 "language": "GDScript",
 "path": "res://scripts/hero/hero.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "Actor",
 "class": "Villain",
 "language": "GDScript",
 "path": "res://scripts/villain/villain.gd"
@@ -25,6 +30,7 @@ _global_script_classes=[ {
 "path": "res://scripts/hazards/button.gd"
 } ]
 _global_script_class_icons={
+"Actor": "",
 "Hero": "",
 "Villain": "",
 "_Button": ""

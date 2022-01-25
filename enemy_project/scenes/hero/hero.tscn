@@ -1,13 +1,70 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scripts/hero/hero.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/light1.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/hero/hero.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/particles/fog.png" type="Texture" id=4]
+[ext_resource path="res://scenes/camera/camera.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape2D" id=61]
 radius = 7.248
 height = 2.558
+
+[sub_resource type="Animation" id=62]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.7 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
+[sub_resource type="Animation" id=63]
+resource_name = "lightanim"
+length = 0.7
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.7, 0.85, 0.7 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.9, 1.0 ]
+}
 
 [sub_resource type="CanvasItemMaterial" id=48]
 particles_animation = true
@@ -74,28 +131,35 @@ states/stand/position = Vector2( 382, 48 )
 states/walk/node = SubResource( 54 )
 states/walk/position = Vector2( 382, 142 )
 transitions = [ "stand", "jump", SubResource( 55 ), "walk", "stand", SubResource( 56 ), "stand", "walk", SubResource( 57 ), "jump", "stand", SubResource( 58 ) ]
+graph_offset = Vector2( 0, -76.6276 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=60]
 
 [node name="Hero" type="KinematicBody2D"]
 script = ExtResource( 1 )
+ground_max_velocity = 95.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.154305, 0.819024 )
+position = Vector2( -0.262781, -8.473 )
 shape = SubResource( 61 )
 
 [node name="Light2D" type="Light2D" parent="."]
-position = Vector2( -0.353573, -6.98121 )
+position = Vector2( 4, -14 )
 texture = ExtResource( 2 )
-texture_scale = 0.76
+texture_scale = 0.7
 color = Color( 1, 0.2, 0.494118, 1 )
-energy = 0.93
 shadow_enabled = true
 shadow_color = Color( 0, 0, 0, 0.368627 )
 shadow_filter = 2
 shadow_filter_smooth = 15.0
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Light2D"]
+autoplay = "lightanim"
+anims/RESET = SubResource( 62 )
+anims/lightanim = SubResource( 63 )
+
 [node name="Flip" type="Node2D" parent="."]
+position = Vector2( 0, -10 )
 
 [node name="SmokeParticle" type="Particles2D" parent="Flip"]
 material = SubResource( 48 )
@@ -121,3 +185,8 @@ anims/walk = SubResource( 51 )
 tree_root = SubResource( 59 )
 anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 60 )
+
+[node name="ShakeCamera" parent="." instance=ExtResource( 5 )]
+position = Vector2( 0, 0 )
+smoothing_speed = 6.0
+target_node = NodePath("..")

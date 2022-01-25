@@ -1,4 +1,4 @@
-[gd_scene load_steps=202 format=2]
+[gd_scene load_steps=203 format=2]
 
 [ext_resource path="res://assets/sprites/tilemaps/tilemap1.png" type="Texture" id=1]
 [ext_resource path="res://scenes/ui/frontlayer.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/sprites/tilemaps/background1.png" type="Texture" id=7]
 [ext_resource path="res://scenes/hazards/torch.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/sprites/tilemaps/pinkcastle.png" type="Texture" id=9]
+[ext_resource path="res://scenes/ui/ui.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/villain/villain.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/hazards/button.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/hazards/golden_door.tscn" type="PackedScene" id=13]
@@ -1264,3 +1265,5 @@ return_duration = 2.8
 position = Vector2( 1385, -33 )
 
 [node name="FrontLayer" parent="." instance=ExtResource( 2 )]
+
+[node name="Ui" parent="." instance=ExtResource( 10 )]

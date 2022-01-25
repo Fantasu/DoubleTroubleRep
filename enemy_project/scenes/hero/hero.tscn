@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://scripts/hero/hero.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/light1.png" type="Texture" id=2]
@@ -6,9 +6,8 @@
 [ext_resource path="res://assets/sprites/particles/fog.png" type="Texture" id=4]
 [ext_resource path="res://scenes/camera/camera.tscn" type="PackedScene" id=5]
 
-[sub_resource type="CapsuleShape2D" id=61]
-radius = 7.248
-height = 2.558
+[sub_resource type="RectangleShape2D" id=64]
+extents = Vector2( 6.51863, 8.40638 )
 
 [sub_resource type="Animation" id=62]
 length = 0.001
@@ -66,48 +65,166 @@ tracks/1/keys = {
 "values": [ 1.0, 0.9, 1.0 ]
 }
 
-[sub_resource type="CanvasItemMaterial" id=48]
+[sub_resource type="CanvasItemMaterial" id=81]
 particles_animation = true
 particles_anim_h_frames = 3
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="Gradient" id=46]
-offsets = PoolRealArray( 0.048913, 0.445652, 0.777778, 1 )
-colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+[sub_resource type="Gradient" id=83]
+offsets = PoolRealArray( 0.00766284, 0.64751, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.955414, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=7]
-gradient = SubResource( 46 )
+[sub_resource type="GradientTexture" id=84]
+gradient = SubResource( 83 )
 
-[sub_resource type="ParticlesMaterial" id=47]
+[sub_resource type="ParticlesMaterial" id=82]
+emission_shape = 1
+emission_sphere_radius = 1.0
 flag_disable_z = true
 direction = Vector3( 0, -1, 0 )
-spread = 15.0
-gravity = Vector3( 0, -15, 0 )
-initial_velocity = 50.0
+spread = 37.11
+gravity = Vector3( 0, -6, 0 )
+initial_velocity = 8.0
+initial_velocity_random = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-linear_accel = 6.0
-radial_accel = 8.96
-angle = -307.9
-angle_random = 1.0
-scale = 0.3
-scale_random = 0.55
-color_ramp = SubResource( 7 )
-anim_offset = 1.0
+damping = 2.0
+damping_random = 0.26
+angle = 142.1
+angle_random = 0.59
+scale = 0.4
+scale_random = 0.73
+color = Color( 0.701961, 0.701961, 0.701961, 1 )
+color_ramp = SubResource( 84 )
+anim_offset = 0.64
 anim_offset_random = 1.0
+
+[sub_resource type="Animation" id=65]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Flip/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=66]
+resource_name = "fall"
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Flip/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 6 ]
+}
 
 [sub_resource type="Animation" id=49]
 resource_name = "jump"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Flip/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 5 ]
+}
+
+[sub_resource type="Animation" id=67]
+resource_name = "land"
+length = 0.407
+tracks/0/type = "value"
+tracks/0/path = NodePath("Flip/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 7, 8, 9, 10 ]
+}
+
+[sub_resource type="Animation" id=76]
+resource_name = "preparejump"
+length = 0.06
+tracks/0/type = "value"
+tracks/0/path = NodePath("Flip/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 11 ]
+}
 
 [sub_resource type="Animation" id=50]
 resource_name = "stand"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Flip/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
 
 [sub_resource type="Animation" id=51]
 resource_name = "walk"
+length = 0.48
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Flip/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.154407, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=68]
+animation = "fall"
 
 [sub_resource type="AnimationNodeAnimation" id=52]
 animation = "jump"
+
+[sub_resource type="AnimationNodeAnimation" id=69]
+animation = "land"
+
+[sub_resource type="AnimationNodeAnimation" id=77]
+animation = "preparejump"
 
 [sub_resource type="AnimationNodeAnimation" id=53]
 animation = "stand"
@@ -115,33 +232,55 @@ animation = "stand"
 [sub_resource type="AnimationNodeAnimation" id=54]
 animation = "walk"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=55]
-
 [sub_resource type="AnimationNodeStateMachineTransition" id=56]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=57]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=58]
+[sub_resource type="AnimationNodeStateMachineTransition" id=70]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=72]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=73]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=74]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=78]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=79]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=80]
 
 [sub_resource type="AnimationNodeStateMachine" id=59]
+states/fall/node = SubResource( 68 )
+states/fall/position = Vector2( 780, 142 )
 states/jump/node = SubResource( 52 )
-states/jump/position = Vector2( 604, 48 )
+states/jump/position = Vector2( 780, 40 )
+states/land/node = SubResource( 69 )
+states/land/position = Vector2( 571, 142 )
+states/preparejump/node = SubResource( 77 )
+states/preparejump/position = Vector2( 562, 40 )
 states/stand/node = SubResource( 53 )
-states/stand/position = Vector2( 382, 48 )
+states/stand/position = Vector2( 376, 40 )
 states/walk/node = SubResource( 54 )
-states/walk/position = Vector2( 382, 142 )
-transitions = [ "stand", "jump", SubResource( 55 ), "walk", "stand", SubResource( 56 ), "stand", "walk", SubResource( 57 ), "jump", "stand", SubResource( 58 ) ]
-graph_offset = Vector2( 0, -76.6276 )
+states/walk/position = Vector2( 376, 142 )
+transitions = [ "walk", "stand", SubResource( 56 ), "stand", "walk", SubResource( 57 ), "jump", "fall", SubResource( 70 ), "fall", "land", SubResource( 72 ), "land", "stand", SubResource( 73 ), "land", "walk", SubResource( 74 ), "stand", "preparejump", SubResource( 78 ), "preparejump", "jump", SubResource( 79 ), "land", "preparejump", SubResource( 80 ) ]
+start_node = "stand"
+graph_offset = Vector2( 171.769, -56.77 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=60]
 
 [node name="Hero" type="KinematicBody2D"]
+collision/safe_margin = 0.001
 script = ExtResource( 1 )
 ground_max_velocity = 95.0
+jump_size = 30.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.262781, -8.473 )
-shape = SubResource( 61 )
+position = Vector2( -0.135971, -8.44565 )
+shape = SubResource( 64 )
 
 [node name="Light2D" type="Light2D" parent="."]
 position = Vector2( 4, -14 )
@@ -161,29 +300,36 @@ anims/lightanim = SubResource( 63 )
 [node name="Flip" type="Node2D" parent="."]
 position = Vector2( 0, -10 )
 
-[node name="SmokeParticle" type="Particles2D" parent="Flip"]
-material = SubResource( 48 )
-position = Vector2( 5, -5 )
+[node name="WalkParticle" type="Particles2D" parent="Flip"]
+material = SubResource( 81 )
+position = Vector2( -5.66256, 9.44931 )
+z_index = -1
 emitting = false
-amount = 5
-lifetime = 3.0
-randomness = 0.79
+amount = 12
+lifetime = 1.5
+randomness = 0.5
 local_coords = false
-process_material = SubResource( 47 )
+process_material = SubResource( 82 )
 texture = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="Flip"]
 position = Vector2( 0, -2 )
 texture = ExtResource( 3 )
+hframes = 12
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 65 )
+anims/fall = SubResource( 66 )
 anims/jump = SubResource( 49 )
+anims/land = SubResource( 67 )
+anims/preparejump = SubResource( 76 )
 anims/stand = SubResource( 50 )
 anims/walk = SubResource( 51 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 59 )
 anim_player = NodePath("../AnimationPlayer")
+active = true
 parameters/playback = SubResource( 60 )
 
 [node name="ShakeCamera" parent="." instance=ExtResource( 5 )]

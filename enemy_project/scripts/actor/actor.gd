@@ -18,8 +18,8 @@ export(float, 0.01, 5.0) var air_fric_time := 0.75
 export (float) var jump_size = 2.2 * TILE_SIZE
 export (float) var min_jump_size = 1.1 * TILE_SIZE
 export (float) var fall_time = 0.65
-var gravity = 2 * jump_size / (pow(fall_time, 2)/2) 
-var jump_force = sqrt(2 * gravity * jump_size)
+onready var gravity = 2 * jump_size / (pow(fall_time, 2)/2) 
+onready var jump_force = sqrt(2 * gravity * jump_size)
 
 export(float, 0.0, 1.0) var buffering_time := 0.20
 export(float, 0.0, 1.0) var coyote_time := 0.20
@@ -46,6 +46,7 @@ var _g_multiplier = 1
 
 func _physics_process(delta):
 	_direction = _get_direction()
+	manage_animations()
 	
 	match _actual_state:
 		STATE_STAND:
@@ -145,6 +146,9 @@ func movement(accel:float, turn_accel:float, max_velocity:float) -> void:
 		
 		_velocity.x = clamp(_velocity.x, -max_velocity, max_velocity)
 
+
+func manage_animations():
+	pass
 
 func flip_nodes():
 	if _direction:

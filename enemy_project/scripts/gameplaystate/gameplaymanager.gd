@@ -14,6 +14,7 @@ export (NodePath) onready var end_zone = get_node(end_zone) as Area2D
 
 export (PackedScene) var next_stage
 
+export (bool) var is_active = true
 
 var current_actor = null
 var current_hero = null
@@ -22,16 +23,18 @@ var current_villain = null
 
 func _ready():
 	yield(get_tree().current_scene, "ready")
-	end_zone.connect("body_entered", self, "on_end_zone_reached")
 	
-	start_villain_turn()
-	
-	if actual_game_state == SHOW_MAP:
-		camera_anim.start_animation(current_villain.global_position)
-		yield(camera_anim, "show_map_ended")
-		update_actor(current_villain)
-		actual_game_state = VILLAIN_TURN
+	if is_active:
+		end_zone.connect("body_entered", self, "on_end_zone_reached")
 		
+		start_villain_turn()
+		
+		if actual_game_state == SHOW_MAP:
+			camera_anim.start_animation(current_villain.global_position)
+			yield(camera_anim, "show_map_ended")
+			update_actor(current_villain)
+			actual_game_state = VILLAIN_TURN
+	
 
 func start_hero_turn():
 	var h = hero.instance()
@@ -54,18 +57,20 @@ func update_actor(actor):
 	
 	
 func on_end_zone_reached(body):
-	if body is Villain:
-		actual_game_state = HERO_TURN
-		
-		start_hero_turn()
-		camera_anim.return_to_origin(current_actor.get_node("ShakeCamera").get_camera_screen_center())
-		yield(camera_anim, "show_map_ended")
-		
-		current_actor.queue_free()
-		update_actor(current_hero)
-		
-	if body is Hero:
-		get_tree().change_scene_to(next_stage)
-		#aqui tem depedencia cyclica e godot chora
-#		get_tree().change_scene("res://scenes/master.tscn")
-		pass
+	if is_active:
+		if body is Villain:
+			actual_game_state = HERO_TURN
+			GameEvents.emit_signal("call_shake", 0.25)
+			
+			start_hero_turn()
+			camera_anim.return_to_origin(current_actor.get_node("ShakeCamera").get_camera_screen_center())
+			yield(camera_anim, "show_map_ended")
+			
+			current_actor.queue_free()
+			update_actor(current_hero)
+			
+		if body is Hero:
+			get_tree().change_scene_to(next_stage)
+			#aqui tem depedencia cyclica e godot chora
+	#		get_tree().change_scene("res://scenes/master.tscn")
+			pass

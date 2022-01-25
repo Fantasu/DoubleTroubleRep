@@ -6,9 +6,7 @@
 
 [node name="Ui" type="CanvasLayer"]
 script = ExtResource( 3 )
-begin = NodePath("../GoldenDoor")
-end = NodePath("../GoldenDoor2")
-target = NodePath("../Hero")
+target = NodePath("Ui")
 
 [node name="Ui" type="Node2D" parent="."]
 modulate = Color( 0.796078, 0.654902, 0.654902, 1 )

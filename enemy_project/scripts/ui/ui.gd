@@ -9,7 +9,7 @@ export (NodePath) onready var end = get_node(end)
 onready var map_distance = end.global_position.x - begin.global_position.x 
 onready var pos_distance = $Ui/End.global_position.x - $Ui/Begin.global_position.x
 
-var target = null
+export (NodePath) onready var target = get_node(target)
 
 
 func _ready():
@@ -18,7 +18,6 @@ func _ready():
 
 
 func _process(_delta):
-	
 	if target is Hero:
 		$Ui/Icon.texture = hero_sprite
 		$Ui/Icon.visible = true
@@ -31,6 +30,7 @@ func _process(_delta):
 	var percent = target_pos / map_distance
 	$Ui/Icon.global_position.x = $Ui/Begin.global_position.x + percent * pos_distance
 	
-	if target._direction:
-		$Ui/Icon.scale.x = target._direction
+	if target is Actor:
+		if target._direction:
+			$Ui/Icon.scale.x = target._direction
 

@@ -3,32 +3,43 @@ class_name Villain
 
 
 onready var animation_playback = $AnimationTree.get("parameters/playback")
-onready var autojump_raycast_1 = $Flip/AutojumpRay1
-onready var autojump_raycast_2 = $Flip/AutojumpRay2
+onready var side_raycast = $Raycasts/SideRaycast
+
+export (bool) var active_camera = false
 
 
 func _ready():
-	autojump_raycast_1.add_exception(self)
-	autojump_raycast_2.add_exception(self)
+	$ShakeCamera.current = active_camera
 
 
-func move_state(delta):
-	flip_nodes()
-	movement(_ground_accel, _ground_turn_accel, ground_max_velocity)
+func _physics_process(delta):
+	print(_actual_state)
+
+
+func manage_animations():
+	if _actual_state == STATE_STAND:
+		animation_playback.travel("stand")
 		
-	if _direction == 0.0:
-		_actual_state = STATE_STAND
+		
+	elif _actual_state == STATE_MOVE:
+		animation_playback.travel("walk")
+		
 	
-	if Input.is_action_just_pressed("ui_up") and is_on_floor():
-		jump()
-	
-	if not is_on_floor():
-		_actual_state = STATE_AIR
+	elif _actual_state == STATE_AIR:
+		if _velocity.y > 0:
+			animation_playback.travel('fall')
+		else:
+			animation_playback.travel('jump')
 
-	if autojump_raycast_1.is_colliding():
-		if autojump_raycast_1.get_collider() is TileMap && autojump_raycast_2.is_colliding() == false:
-			jump()
-
-
+		
 func call_shake(trauma: float):
 	GameEvents.emit_signal("call_shake", trauma)
+
+
+func destroy_tiles():
+	if side_raycast.is_colliding():
+		var collider = side_raycast.get_collider()
+		if collider is TileMap:
+			var tile_pos = collider.world_to_map(side_raycast.get_collision_point())
+			collider.set_cellv(tile_pos, -1)
+			collider.update_bitmask_region(side_raycast.get_collision_point())

@@ -1,4 +1,4 @@
-[gd_scene load_steps=202 format=2]
+[gd_scene load_steps=201 format=2]
 
 [ext_resource path="res://assets/sprites/tilemaps/tilemap1.png" type="Texture" id=1]
 [ext_resource path="res://scenes/ui/frontlayer.tscn" type="PackedScene" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://scenes/ui/ui.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/gameplaystate/gameplaymanager.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/hazards/button.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/villain/villain.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/camera/cameraanimation.tscn" type="PackedScene" id=14]
 
 [sub_resource type="TileSet" id=47]
@@ -1196,7 +1195,6 @@ camera_anim = NodePath("../CameraAnimation")
 start_position = NodePath("../Start&End/Start_Position")
 end_zone = NodePath("../Start&End/EndZone")
 next_stage = ExtResource( 8 )
-is_active = false
 
 [node name="CameraAnimation" parent="." instance=ExtResource( 14 )]
 duration_per_position = 4.5
@@ -1273,7 +1271,3 @@ color = Color( 0.45098, 0.270588, 0.270588, 1 )
 [node name="Ui" parent="." instance=ExtResource( 10 )]
 begin = NodePath("../Start&End/Start_Position")
 end = NodePath("../Start&End/EndZone")
-
-[node name="Villain" parent="." instance=ExtResource( 13 )]
-position = Vector2( 55, 120 )
-active_camera = true

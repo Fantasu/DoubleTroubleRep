@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scripts/hero/hero.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/light1.png" type="Texture" id=2]
@@ -243,8 +243,6 @@ animation = "walk"
 [sub_resource type="AnimationNodeStateMachineTransition" id=73]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=74]
-
 [sub_resource type="AnimationNodeStateMachineTransition" id=78]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=79]
@@ -266,7 +264,7 @@ states/stand/node = SubResource( 53 )
 states/stand/position = Vector2( 376, 40 )
 states/walk/node = SubResource( 54 )
 states/walk/position = Vector2( 376, 142 )
-transitions = [ "walk", "stand", SubResource( 56 ), "stand", "walk", SubResource( 57 ), "jump", "fall", SubResource( 70 ), "fall", "land", SubResource( 72 ), "land", "stand", SubResource( 73 ), "land", "walk", SubResource( 74 ), "stand", "preparejump", SubResource( 78 ), "preparejump", "jump", SubResource( 79 ), "land", "preparejump", SubResource( 80 ) ]
+transitions = [ "walk", "stand", SubResource( 56 ), "stand", "walk", SubResource( 57 ), "jump", "fall", SubResource( 70 ), "fall", "land", SubResource( 72 ), "land", "stand", SubResource( 73 ), "stand", "preparejump", SubResource( 78 ), "preparejump", "jump", SubResource( 79 ), "land", "preparejump", SubResource( 80 ) ]
 start_node = "stand"
 graph_offset = Vector2( 171.769, -56.77 )
 

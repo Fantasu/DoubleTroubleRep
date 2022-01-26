@@ -31,19 +31,3 @@ func manage_animations():
 		
 func call_shake(trauma: float):
 	GameEvents.emit_signal("call_shake", trauma)
-
-
-func destroy_tiles():
-	if side_raycast.is_colliding():
-		var collider = side_raycast.get_collider()
-		if collider is TileMap:
-			var tile_pos = collider.world_to_map(side_raycast.get_collision_point())
-			collider.set_cellv(tile_pos, -1)
-			collider.update_bitmask_region(side_raycast.get_collision_point())
-
-
-func _process(delta):
-	destroy_tiles()
-
-
-

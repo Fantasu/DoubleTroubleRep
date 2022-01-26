@@ -3,6 +3,8 @@ class_name Actor
 
 enum {STATE_MOVE, STATE_STAND, STATE_AIR}
 
+const SNAP_DIRECTION = Vector2.DOWN
+const SNAP_LENGHT = 2
 const TILE_SIZE = 16
 
 export(float) var ground_max_velocity := 7.0 * TILE_SIZE
@@ -45,6 +47,7 @@ var _first_fall : bool = false
 var _jump_pressed : bool = false
 var _was_jumped : bool = false
 var _engine_fps = Engine.iterations_per_second
+var _snap_vector = SNAP_DIRECTION * SNAP_LENGHT
 
 
 func _physics_process(delta):
@@ -65,7 +68,7 @@ func _physics_process(delta):
 			
 	_velocity.y += gravity * delta * _g_multiplier
 	
-	_velocity = move_and_slide(_velocity, Vector2.UP)
+	_velocity = move_and_slide_with_snap(_velocity, _snap_vector, Vector2.UP, true)
 
 
 func stand_state(delta):
@@ -83,6 +86,7 @@ func stand_state(delta):
 
 
 func air_state(delta):
+	_snap_vector = Vector2.ZERO
 	flip_nodes()
 	movement(_air_accel, _air_turn_accel, air_max_velocity)
 	calculate_fall_distance()
@@ -116,6 +120,7 @@ func air_state(delta):
 		_g_multiplier = 1
 		_fall_distance = 0.0
 		_actual_state = STATE_MOVE
+		_snap_vector = SNAP_DIRECTION*SNAP_LENGHT
 
 
 func calculate_fall_distance() -> void:
@@ -156,6 +161,7 @@ func _get_direction() -> float:
 
 
 func jump():
+	_snap_vector = Vector2.ZERO
 	_velocity.y = -jump_force
 	_was_jumped = true
 

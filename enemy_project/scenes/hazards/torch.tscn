@@ -32,7 +32,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ false ]
+"values": [ true ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Light2D:texture_scale")
@@ -45,6 +45,18 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.9 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SmokeParticle:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -61,18 +73,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 4 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Light2D:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -142,7 +142,6 @@ z_index = -5
 script = ExtResource( 3 )
 
 [node name="Light2D" type="Light2D" parent="."]
-visible = false
 position = Vector2( 0, -4 )
 texture = ExtResource( 2 )
 texture_scale = 0.9
@@ -154,9 +153,9 @@ position = Vector2( -21, -18 )
 scale = Vector2( 1.65, 1.45 )
 rect = Rect2( -10, -10, 45, 45 )
 
-[node name="VillainDetector" type="Area2D" parent="."]
+[node name="Detector" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VillainDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
 position = Vector2( 0, -1 )
 shape = SubResource( 1 )
 
@@ -169,7 +168,6 @@ anims/on = SubResource( 4 )
 [node name="SmokeParticle" type="Particles2D" parent="."]
 material = SubResource( 8 )
 position = Vector2( 0, -1 )
-emitting = false
 amount = 5
 lifetime = 2.0
 randomness = 0.56

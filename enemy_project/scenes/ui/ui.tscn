@@ -9,6 +9,7 @@ script = ExtResource( 3 )
 target = NodePath("Ui")
 
 [node name="Ui" type="Node2D" parent="."]
+visible = false
 modulate = Color( 0.796078, 0.654902, 0.654902, 1 )
 
 [node name="Sprite" type="Sprite" parent="Ui"]

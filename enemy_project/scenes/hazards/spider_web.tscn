@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 59 )
+
+[node name="SpiderWeb" type="StaticBody2D" groups=["spiderweb"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -10.0
+margin_top = -59.0
+margin_right = 10.0
+margin_bottom = 60.0
+color = Color( 1, 0.72549, 0.72549, 0.67451 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

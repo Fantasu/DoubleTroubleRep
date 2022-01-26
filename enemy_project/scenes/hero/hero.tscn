@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://scripts/hero/hero.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/light1.png" type="Texture" id=2]
@@ -41,24 +41,12 @@ resource_name = "lightanim"
 length = 0.7
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:texture_scale")
+tracks/0/path = NodePath(".:energy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0.7, 0.85, 0.7 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:energy")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 0, 0.3, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
@@ -100,6 +88,9 @@ color_ramp = SubResource( 84 )
 anim_offset = 0.64
 anim_offset_random = 1.0
 
+[sub_resource type="RectangleShape2D" id=86]
+extents = Vector2( 3.88022, 8.55731 )
+
 [sub_resource type="Animation" id=65]
 length = 0.001
 tracks/0/type = "value"
@@ -114,11 +105,50 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 0 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Flip/TorchHitBox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=87]
+resource_name = "attack"
+length = 0.85
+tracks/0/type = "value"
+tracks/0/path = NodePath("Flip/TorchHitBox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Flip/Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 11, 12, 13, 14, 15, 16, 17, 18, 19 ]
+}
 
 [sub_resource type="Animation" id=66]
 resource_name = "fall"
-length = 0.1
-loop = true
+length = 0.25
 tracks/0/type = "value"
 tracks/0/path = NodePath("Flip/Sprite:frame")
 tracks/0/interp = 1
@@ -126,10 +156,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 6 ]
+"values": [ 20, 6 ]
 }
 
 [sub_resource type="Animation" id=49]
@@ -214,6 +244,9 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4 ]
 }
 
+[sub_resource type="AnimationNodeAnimation" id=88]
+animation = "attack"
+
 [sub_resource type="AnimationNodeAnimation" id=68]
 animation = "fall"
 
@@ -251,7 +284,19 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=80]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=85]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=89]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=90]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=91]
+
 [sub_resource type="AnimationNodeStateMachine" id=59]
+states/attack/node = SubResource( 88 )
+states/attack/position = Vector2( 216.769, 40 )
 states/fall/node = SubResource( 68 )
 states/fall/position = Vector2( 780, 142 )
 states/jump/node = SubResource( 52 )
@@ -259,19 +304,19 @@ states/jump/position = Vector2( 780, 40 )
 states/land/node = SubResource( 69 )
 states/land/position = Vector2( 571, 142 )
 states/preparejump/node = SubResource( 77 )
-states/preparejump/position = Vector2( 562, 40 )
+states/preparejump/position = Vector2( 571, 40 )
 states/stand/node = SubResource( 53 )
 states/stand/position = Vector2( 376, 40 )
 states/walk/node = SubResource( 54 )
 states/walk/position = Vector2( 376, 142 )
-transitions = [ "walk", "stand", SubResource( 56 ), "stand", "walk", SubResource( 57 ), "jump", "fall", SubResource( 70 ), "fall", "land", SubResource( 72 ), "land", "stand", SubResource( 73 ), "stand", "preparejump", SubResource( 78 ), "preparejump", "jump", SubResource( 79 ), "land", "preparejump", SubResource( 80 ) ]
+transitions = [ "walk", "stand", SubResource( 56 ), "stand", "walk", SubResource( 57 ), "jump", "fall", SubResource( 70 ), "fall", "land", SubResource( 72 ), "land", "stand", SubResource( 73 ), "stand", "preparejump", SubResource( 78 ), "preparejump", "jump", SubResource( 79 ), "land", "preparejump", SubResource( 80 ), "land", "walk", SubResource( 85 ), "stand", "attack", SubResource( 89 ), "attack", "stand", SubResource( 90 ), "walk", "attack", SubResource( 91 ) ]
 start_node = "stand"
-graph_offset = Vector2( 171.769, -56.77 )
+graph_offset = Vector2( 61.4231, -56.77 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=60]
 
 [node name="Hero" type="KinematicBody2D"]
-collision/safe_margin = 0.001
+z_index = 1
 script = ExtResource( 1 )
 ground_max_velocity = 95.0
 jump_size = 30.0
@@ -313,10 +358,19 @@ texture = ExtResource( 4 )
 [node name="Sprite" type="Sprite" parent="Flip"]
 position = Vector2( 0, -2 )
 texture = ExtResource( 3 )
-hframes = 12
+hframes = 21
+
+[node name="TorchHitBox" type="Area2D" parent="Flip"]
+position = Vector2( 9.72272, 0.807613 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Flip/TorchHitBox"]
+position = Vector2( 0.308387, 0.749939 )
+shape = SubResource( 86 )
+disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 65 )
+anims/attack = SubResource( 87 )
 anims/fall = SubResource( 66 )
 anims/jump = SubResource( 49 )
 anims/land = SubResource( 67 )

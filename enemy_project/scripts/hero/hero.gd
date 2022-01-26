@@ -7,11 +7,11 @@ export (bool) var active_camera = false
 
 
 func _ready():
+	$Flip/TorchHitBox.connect("body_entered", self, "torch_action")
 	$ShakeCamera.current = active_camera
 
-	
+
 func manage_animations():
-	
 	if _actual_state == STATE_STAND:
 		animation_playback.travel("stand")
 		$Flip/WalkParticle.emitting = false
@@ -27,3 +27,21 @@ func manage_animations():
 			animation_playback.travel('jump')
 		
 		$Flip/WalkParticle.emitting = false
+		
+		
+	if Input.is_action_pressed("action") && is_on_floor():
+		animation_playback.travel("attack")
+	
+		
+func torch_action(body):
+	if body.is_in_group("spiderweb"):
+		#body.playanimation.....
+		body.queue_free()
+		GameEvents.emit_signal("call_shake", 0.25)
+
+
+func _get_direction() -> float:
+	if animation_playback.get_current_node() == "attack":
+		return 0.0
+	else:
+		return sign(Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"))

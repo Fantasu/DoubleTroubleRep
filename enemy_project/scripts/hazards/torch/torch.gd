@@ -1,25 +1,44 @@
 extends Node2D
+class_name Torch
+
+signal state_changed(state)
+
+enum States{OFF, ON}
+export (States) var actual_state = States.ON
 
 
 func _ready():
-	$VisibilityNotifier2D.connect("viewport_entered", self, "on_screen_entered")
-	$VisibilityNotifier2D.connect("viewport_exited", self, "on_screen_exited")
-	$Light2D.visible = true
-	$SmokeParticle.emitting = true
-#	$VillainDetector.connect("body_entered", self, "destroy_light")
+	$Detector.connect("body_entered", self, "detect_actor")
+	update_animation()
 
 
-#func destroy_light(body):
-#	if body is Villain:
-#		body.animationtree.travel("destroy_torch")
-#		$AnimationPlayer.play("off")
+func _process(delta):
+	if $VisibilityNotifier2D.is_on_screen():
+		self.visible = true
+		if actual_state == States.ON:
+			$SmokeParticle.emitting = true
+	else:
+		self.visible = false
+		$SmokeParticle.emitting = false
+	
 
+func update_animation():
+	if actual_state == States.ON:
+		$AnimationPlayer.play("on")
+		$Light2D.visible = true
+		$SmokeParticle.emitting = true
+	
+	elif actual_state == States.OFF:
+		$AnimationPlayer.play("off")
+		$Light2D.visible = false
+		$SmokeParticle.emitting = false
+	
 
-func on_screen_entered(_viewport):
-	self.visible = true
-	$SmokeParticle.emitting = true
+func detect_actor(body):
+	if body is Hero:
+		if actual_state == States.OFF:
+			$AnimationPlayer.play("on")
+			actual_state = States.ON
+			$Light2D.visible = true
+			emit_signal("state_changed")
 
-
-func on_screen_exited(_viewport):
-	self.visible = false
-	$SmokeParticle.emitting = false

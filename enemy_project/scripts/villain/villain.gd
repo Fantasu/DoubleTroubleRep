@@ -5,6 +5,12 @@ class_name Villain
 onready var animation_playback = $AnimationTree.get("parameters/playback")
 onready var side_raycast = $Raycasts/SideRaycast
 
+export (bool) var active_camera = false
+
+
+func _ready():
+	$ShakeCamera.current = active_camera
+
 
 func manage_animations():
 	
@@ -25,8 +31,3 @@ func manage_animations():
 		
 func call_shake(trauma: float):
 	GameEvents.emit_signal("call_shake", trauma)
-
-
-func _input(event):
-	if event.is_action_pressed("ui_down"):
-		active = not active

@@ -5,7 +5,7 @@ class_name _Button
 export (Array, NodePath) var activate_nodepaths_list
 var activate_nodes = []
 var was_activated = false
-export(String, 'Villain', 'Hero') var target = 'Villain'
+export(String, 'Villain', 'Hero', 'Both') var target = 'Villain'
 export(String, 'press_stand', 'press_release') var mode = 'press_stand'
 
 func _ready():
@@ -17,18 +17,18 @@ func _ready():
 
 
 func on_body_press(body):
-	if body.name == target and was_activated == false:
+	if (body.name == target or (body is Actor and target == 'Both')) and was_activated == false:
 		activate()
 	
-	if body.name != target and was_activated == false:
+	if (body.name == target or (body is Actor and target == 'Both')) and was_activated == false:
 		semi_activate()
 
 
 func on_body_exited(body):
-	if body.name != target and was_activated == false:
+	if (body.name == target or (body is Actor and target == 'Both')) and was_activated == false:
 		$AnimationPlayer.play("RESET")
 	
-	if body.name == target and mode == 'press_release':
+	if (body.name == target or (body is Actor and target == 'Both')) and mode == 'press_release':
 		desactivate()
 
 

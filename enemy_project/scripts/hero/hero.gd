@@ -1,14 +1,13 @@
 extends Actor
 class_name Hero
 
+
 onready var animation_playback = $AnimationTree.get("parameters/playback")
 
-export (bool) var active_camera = false
 
 
 func _ready():
 	$Flip/TorchHitBox.connect("body_entered", self, "torch_action")
-	$ShakeCamera.current = active_camera
 
 
 func manage_animations():
@@ -43,5 +42,11 @@ func torch_action(body):
 func _get_direction() -> float:
 	if animation_playback.get_current_node() == "attack":
 		return 0.0
-	else:
+	elif active:
 		return sign(Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"))
+	return 0.0
+
+
+func _input(event):
+	if event.is_action_pressed("ui_down"):
+		active = not active

@@ -363,8 +363,10 @@ active = true
 parameters/playback = SubResource( 3 )
 
 [node name="ShakeCamera" parent="." instance=ExtResource( 4 )]
-position = Vector2( 0, 0 )
+position = Vector2( 68.438, -27.679 )
 smoothing_speed = 6.0
+drag_margin_top = 0.42
+drag_margin_bottom = 0.0
 target_node = NodePath("..")
 
 [node name="Raycasts" type="Node2D" parent="."]

@@ -154,6 +154,8 @@ scale = Vector2( 1.65, 1.45 )
 rect = Rect2( -10, -10, 45, 45 )
 
 [node name="Detector" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
 position = Vector2( 0, -1 )

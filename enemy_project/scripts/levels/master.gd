@@ -1,8 +1,8 @@
 extends Node2D
 
-
 func _ready():
 #	Engine.time_scale = 0.5
+	GameEvents.connect("actual_actor", self, 'aaa')
 	pass
 
 func _input(event):
@@ -12,3 +12,6 @@ func _input(event):
 	if event.is_action_pressed("reset"):
 		get_tree().reload_current_scene()
 
+
+func aaa(actor):
+	pass

@@ -1,6 +1,8 @@
 extends KinematicBody2D
 class_name Actor
 
+signal pisando_atualizado(ta_pisando)
+
 enum {STATE_MOVE, STATE_STAND, STATE_AIR}
 
 const SNAP_DIRECTION = Vector2.DOWN
@@ -26,6 +28,8 @@ onready var jump_force = sqrt(2 * gravity * jump_size)
 export(float, 0.0, 1.0) var buffering_time := 0.20
 export(float, 0.0, 1.0) var coyote_time := 0.20
 
+export(bool) var active = true
+
 onready var _gravity_multiplier = jump_size/min_jump_size
 onready var _ground_fric = ground_max_velocity / (ground_fric_time * _engine_fps) #fps
 onready var _ground_accel = ground_max_velocity / (ground_accel_time * _engine_fps) #fps
@@ -48,6 +52,7 @@ var _jump_pressed : bool = false
 var _was_jumped : bool = false
 var _engine_fps = Engine.iterations_per_second
 var _snap_vector = SNAP_DIRECTION * SNAP_LENGHT
+var _ta_pisando = is_on_floor()
 
 
 func _physics_process(delta):
@@ -69,7 +74,13 @@ func _physics_process(delta):
 	_velocity.y += gravity * delta * _g_multiplier
 	
 	_velocity = move_and_slide_with_snap(_velocity, _snap_vector, Vector2.UP, true)
-
+	
+	var tava_pisando = _ta_pisando
+	_ta_pisando = is_on_floor()
+	
+	if tava_pisando == null or _ta_pisando != tava_pisando:
+		emit_signal("pisando_atualizado", _ta_pisando)
+	
 
 func stand_state(delta):
 	flip_nodes()
@@ -78,7 +89,7 @@ func stand_state(delta):
 	if _direction != 0:
 		_actual_state = STATE_MOVE
 	
-	if Input.is_action_just_pressed("ui_up") and is_on_floor():
+	if Input.is_action_just_pressed("ui_up") and active and is_on_floor():
 		jump()
 	
 	if not is_on_floor():
@@ -94,10 +105,10 @@ func air_state(delta):
 	if _direction == 0.0:
 		_velocity.x = max(abs(_velocity.x) - _air_fric, 0.0) * sign(_velocity.x)
 	
-	if Input.is_action_just_pressed("ui_up"):
+	if Input.is_action_just_pressed("ui_up") and active:
 		_jump_pressed = true
 	
-	if Input.is_action_just_pressed("ui_up") and coyote_time > 0 and not _was_jumped:
+	if Input.is_action_just_pressed("ui_up") and active and coyote_time > 0 and not _was_jumped:
 		_g_multiplier = 1
 		jump()
 		
@@ -149,7 +160,7 @@ func move_state(delta):
 	else:
 		flip_time = 0.1
 	
-	if Input.is_action_just_pressed("ui_up") and is_on_floor():
+	if Input.is_action_just_pressed("ui_up") and active and is_on_floor():
 		jump()
 	
 	if not is_on_floor():
@@ -157,7 +168,9 @@ func move_state(delta):
 
 
 func _get_direction() -> float:
-	return sign(Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"))
+	if active:
+		return sign(Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"))
+	return 0.0
 
 
 func jump():

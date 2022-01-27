@@ -4,6 +4,7 @@ class_name Villain
 
 onready var animation_playback = $AnimationTree.get("parameters/playback")
 onready var side_raycast = $Raycasts/SideRaycast
+onready var jump_sfx = $JumpSound
 
 
 func _ready():
@@ -29,6 +30,12 @@ func manage_animations():
 
 func call_shake(trauma: float):
 	GameEvents.emit_signal("call_shake", trauma)
+
+
+func jump():
+	jump_sfx.play()
+	_velocity.y = -jump_force
+	_was_jumped = true
 
 
 func _input(event):

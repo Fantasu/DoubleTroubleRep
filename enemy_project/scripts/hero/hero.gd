@@ -2,6 +2,8 @@ extends Actor
 class_name Hero
 
 onready var animation_playback = $AnimationTree.get("parameters/playback")
+onready var jump_sfx = $JumpSound
+
 
 func _ready():
 	$Flip/TorchHitBox.connect("body_entered", self, "torch_action")
@@ -28,6 +30,12 @@ func manage_animations():
 		
 	if Input.is_action_pressed("action") && is_on_floor():
 		animation_playback.travel("attack")
+
+
+func jump():
+	jump_sfx.play()
+	_velocity.y = -jump_force
+	_was_jumped = true
 
 
 func torch_action(body):

@@ -52,8 +52,10 @@ var _first_fall : bool = false
 var _jump_pressed : bool = false
 var _was_jumped : bool = false
 var _engine_fps = Engine.iterations_per_second
+
 var _inside_ladder = false
 var _ladder
+
 
 func _physics_process(delta):
 	_direction = _get_direction()
@@ -151,6 +153,18 @@ func air_state(delta):
 		_g_multiplier = 1
 		_fall_distance = 0.0
 		_actual_state = STATE_MOVE
+
+func calculate_fall_distance() -> void:
+	if _velocity.y > 0 and not _first_fall:
+		_initial_fall_pos = self.global_position.y
+		_first_fall = true
+	
+	elif _velocity.y > 0 and _first_fall:
+		_fall_distance = (self.global_position.y - _initial_fall_pos)
+	
+	else:
+		_first_fall = false
+		_fall_distance = 0.0
 
 
 func climbing_state(delta):

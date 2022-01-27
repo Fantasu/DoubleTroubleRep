@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/hazards/large_button.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="LargeButton" type="Area2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource( 1 )
+mode = "press_release"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -1.19209e-07, 0 )
+scale = Vector2( 0.304688, 0.242188 )
+texture = ExtResource( 2 )

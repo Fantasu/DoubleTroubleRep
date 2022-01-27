@@ -44,6 +44,48 @@ func _get_direction() -> float:
 
 
 func _input(event):
-	if event.is_action_pressed("ui_down"):
+	if event.is_action_pressed("ui_accept"):
 		active = not active
 		$ShakeCamera.current = active
+	
+	if event.is_action_pressed("ui_up") and _inside_ladder and is_instance_valid(_ladder) and _actual_state != STATE_CLIMBING and active:
+		enter_in_ladder()
+	
+	if event.is_action_pressed("ui_down") and one_way_colliding():
+		self.global_position.y += 1
+		var area = one_way_colliding()
+		_inside_ladder = true
+		enter_in_ladder()
+
+
+func one_way_colliding():
+	for child in $OneWayRays.get_children():
+		if child.is_colliding():
+			return child.get_collider().owner
+			break
+
+
+func enter_in_ladder():
+	_velocity.x = 0
+	global_position.x = _ladder.global_position.x
+	gravity = 0
+	_actual_state = STATE_CLIMBING
+
+
+func climbing_state(delta):
+	var _climb_direc = up_down()
+	self._velocity.y = _climb_direc * climb_speed
+	
+	if (_direction and not _climb_direc) or not _inside_ladder:
+		_velocity.y = 0
+		gravity = _default_gravity
+		if not _inside_ladder:
+			jump()
+		_actual_state = STATE_MOVE
+
+
+func up_down() -> float:
+	if active:
+		return sign(Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up"))
+	return 0.0
+

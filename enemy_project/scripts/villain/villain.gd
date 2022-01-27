@@ -32,7 +32,7 @@ func call_shake(trauma: float):
 
 
 func _input(event):
-	if event.is_action_pressed("ui_down"):
+	if event.is_action_pressed("ui_accept"):
 		active = not active
 		$ShakeCamera.current = active
 

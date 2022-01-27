@@ -419,3 +419,20 @@ smoothing_speed = 6.0
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
 volume_db = -10.0
+
+target_node = NodePath("..")
+
+[node name="OneWayRays" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="OneWayRays"]
+position = Vector2( 4, 0 )
+enabled = true
+cast_to = Vector2( 0, 1 )
+collision_mask = 8
+
+[node name="RayCast2D2" type="RayCast2D" parent="OneWayRays"]
+position = Vector2( -4, 0 )
+enabled = true
+cast_to = Vector2( 0, 1 )
+collision_mask = 8
+

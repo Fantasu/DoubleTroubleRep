@@ -1,10 +1,11 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://scripts/hero/hero.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/light1.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/hero/hero.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/particles/fog.png" type="Texture" id=4]
 [ext_resource path="res://scenes/camera/camera.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/sfx/player/jump.wav" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=64]
 extents = Vector2( 6.51863, 8.40638 )
@@ -120,7 +121,8 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=87]
 resource_name = "attack"
-length = 0.85
+length = 0.602
+step = 0.067
 tracks/0/type = "value"
 tracks/0/path = NodePath("Flip/TorchHitBox/CollisionShape2D:disabled")
 tracks/0/interp = 1
@@ -128,7 +130,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6, 0.8 ),
+"times": PoolRealArray( 0, 0.599326, 0.8 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, false, true ]
@@ -140,10 +142,27 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 ),
+"times": PoolRealArray( 0, 0.067, 0.134, 0.256154, 0.346646, 0.452459, 0.501684, 0.7, 0.8 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 11, 12, 13, 14, 15, 16, 17, 18, 19 ]
+}
+
+[sub_resource type="Animation" id=92]
+resource_name = "climbing"
+length = 0.459
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Flip/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.209864 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 21, 22 ]
 }
 
 [sub_resource type="Animation" id=66]
@@ -247,6 +266,9 @@ tracks/0/keys = {
 [sub_resource type="AnimationNodeAnimation" id=88]
 animation = "attack"
 
+[sub_resource type="AnimationNodeAnimation" id=93]
+animation = "climbing"
+
 [sub_resource type="AnimationNodeAnimation" id=68]
 animation = "fall"
 
@@ -294,9 +316,15 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=91]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=94]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=95]
+
 [sub_resource type="AnimationNodeStateMachine" id=59]
 states/attack/node = SubResource( 88 )
-states/attack/position = Vector2( 216.769, 40 )
+states/attack/position = Vector2( 170.769, 40 )
+states/climbing/node = SubResource( 93 )
+states/climbing/position = Vector2( 376, -61.77 )
 states/fall/node = SubResource( 68 )
 states/fall/position = Vector2( 780, 142 )
 states/jump/node = SubResource( 52 )
@@ -309,9 +337,9 @@ states/stand/node = SubResource( 53 )
 states/stand/position = Vector2( 376, 40 )
 states/walk/node = SubResource( 54 )
 states/walk/position = Vector2( 376, 142 )
-transitions = [ "walk", "stand", SubResource( 56 ), "stand", "walk", SubResource( 57 ), "jump", "fall", SubResource( 70 ), "fall", "land", SubResource( 72 ), "land", "stand", SubResource( 73 ), "stand", "preparejump", SubResource( 78 ), "preparejump", "jump", SubResource( 79 ), "land", "preparejump", SubResource( 80 ), "land", "walk", SubResource( 85 ), "stand", "attack", SubResource( 89 ), "attack", "stand", SubResource( 90 ), "walk", "attack", SubResource( 91 ) ]
+transitions = [ "walk", "stand", SubResource( 56 ), "stand", "walk", SubResource( 57 ), "jump", "fall", SubResource( 70 ), "fall", "land", SubResource( 72 ), "land", "stand", SubResource( 73 ), "stand", "preparejump", SubResource( 78 ), "preparejump", "jump", SubResource( 79 ), "land", "preparejump", SubResource( 80 ), "land", "walk", SubResource( 85 ), "stand", "attack", SubResource( 89 ), "attack", "stand", SubResource( 90 ), "walk", "attack", SubResource( 91 ), "stand", "climbing", SubResource( 94 ), "climbing", "stand", SubResource( 95 ) ]
 start_node = "stand"
-graph_offset = Vector2( 61.4231, -56.77 )
+graph_offset = Vector2( 61.4231, -132.67 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=60]
 
@@ -330,7 +358,6 @@ position = Vector2( 4, -14 )
 texture = ExtResource( 2 )
 texture_scale = 0.7
 color = Color( 1, 0.2, 0.494118, 1 )
-shadow_enabled = true
 shadow_color = Color( 0, 0, 0, 0.368627 )
 shadow_filter = 2
 shadow_filter_smooth = 15.0
@@ -358,7 +385,7 @@ texture = ExtResource( 4 )
 [node name="Sprite" type="Sprite" parent="Flip"]
 position = Vector2( 0, -2 )
 texture = ExtResource( 3 )
-hframes = 21
+hframes = 23
 
 [node name="TorchHitBox" type="Area2D" parent="Flip"]
 position = Vector2( 9.72272, 0.807613 )
@@ -371,6 +398,7 @@ disabled = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 65 )
 anims/attack = SubResource( 87 )
+anims/climbing = SubResource( 92 )
 anims/fall = SubResource( 66 )
 anims/jump = SubResource( 49 )
 anims/land = SubResource( 67 )
@@ -387,4 +415,7 @@ parameters/playback = SubResource( 60 )
 [node name="ShakeCamera" parent="." instance=ExtResource( 5 )]
 position = Vector2( 0, 0 )
 smoothing_speed = 6.0
-target_node = NodePath("..")
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+volume_db = -10.0

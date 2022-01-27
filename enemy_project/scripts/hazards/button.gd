@@ -8,6 +8,7 @@ var was_activated = false
 export(String, 'Villain', 'Hero') var target = 'Villain'
 export(String, 'press_stand', 'press_release') var mode = 'press_stand'
 
+
 func _ready():
 	self.connect("body_entered", self, "on_body_press")
 	self.connect("body_exited", self, "on_body_exited")

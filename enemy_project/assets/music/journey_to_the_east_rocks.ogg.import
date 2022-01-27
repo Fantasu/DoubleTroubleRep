@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/journey_to_the_east_rocks.ogg-431e7eaa2b1d352bbcf952201481e7c7.oggstr"
+
+[deps]
+
+source_file="res://assets/music/journey_to_the_east_rocks.ogg"
+dest_files=[ "res://.import/journey_to_the_east_rocks.ogg-431e7eaa2b1d352bbcf952201481e7c7.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

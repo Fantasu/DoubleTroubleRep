@@ -22,14 +22,12 @@ func _ready():
 		var node = get_node(nodepath)
 		activate_nodes.append(node)
 
-
-func _process(_delta):
+		
+func add_to_counter():
+	count += 1
+	
 	if count == torch_list.size() && was_activated == false:
 		for node in activate_nodes:
 			if node.has_method("activate"):
 				node.activate()
 		was_activated = true
-		
-		
-func add_to_counter():
-	count += 1

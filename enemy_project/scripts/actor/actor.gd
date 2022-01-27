@@ -199,16 +199,3 @@ func manage_animations():
 func flip_nodes():
 	if _direction:
 		$Flip.scale.x = _direction
-
-
-func calculate_fall_distance() -> void:
-	if _velocity.y > 0 and not _first_fall:
-		_initial_fall_pos = self.global_position.y
-		_first_fall = true
-	
-	elif _velocity.y > 0 and _first_fall:
-		_fall_distance = (self.global_position.y - _initial_fall_pos)
-	
-	else:
-		_first_fall = false
-		_fall_distance = 0.0

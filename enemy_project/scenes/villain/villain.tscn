@@ -340,5 +340,4 @@ collision_layer = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OneWayStatic"]
 position = Vector2( -2, -8.5 )
 shape = SubResource( 45 )
-disabled = true
 one_way_collision = true

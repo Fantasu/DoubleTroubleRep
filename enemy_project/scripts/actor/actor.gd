@@ -40,7 +40,7 @@ onready var _air_turn_accel = air_max_velocity / (air_turn_time * _engine_fps) #
 
 onready var _default_buffering_time = buffering_time
 onready var _default_coyote_time = coyote_time
-
+var snap = Vector2.ZERO
 var _inside_wind = false
 var _initial_fall_pos := 2.0
 var _fall_distance := 0.0
@@ -80,11 +80,13 @@ func _physics_process(delta):
 		
 		STATE_PLATFORM:
 			platform_state(delta)
-		
-		
+	
+	
+	snap = Vector2.ZERO if _was_jumped or not is_on_floor() or _actual_state == STATE_CLIMBING or gravity == 0 else Vector2.DOWN * 8
+	
 	_velocity.y += gravity * delta * _g_multiplier
 	
-	_velocity = move_and_slide(_velocity, Vector2.UP)
+	_velocity = move_and_slide_with_snap(_velocity, snap,Vector2.UP)
 
 
 func stand_state(delta):

@@ -40,7 +40,6 @@ func manage_animations():
 
 func jump():
 	if (not animation_playback.get_current_node() in forbidden_animations) and active:
-
 		jump_sfx.play()
 		_velocity.y = -jump_force
 		_was_jumped = true

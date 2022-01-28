@@ -63,7 +63,7 @@ func destroy_tiles():
 
 func _input(event):
 	if event.is_action_pressed("ui_up") and active:
-		$OneWayStatic/CollisionShape2D.disabled = false
+#		$OneWayStatic/CollisionShape2D.disabled = false
 		_actual_state = STATE_PLATFORM
 
 
@@ -82,14 +82,14 @@ func platform_state(delta):
 	_velocity.x = clamp(_velocity.x, -ground_max_velocity, ground_max_velocity)
 	
 	if _direction != 0:
-		$OneWayStatic/CollisionShape2D.disabled = true
+#		$OneWayStatic/CollisionShape2D.disabled = true
 		_actual_state = STATE_MOVE
 	
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		jump()
 	
 	if not is_on_floor():
-		$OneWayStatic/CollisionShape2D.disabled = true
+#		$OneWayStatic/CollisionShape2D.disabled = true
 		_actual_state = STATE_AIR
 
 

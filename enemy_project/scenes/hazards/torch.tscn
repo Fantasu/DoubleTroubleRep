@@ -83,9 +83,19 @@ pause_mode = 2
 z_index = -5
 script = ExtResource( 3 )
 
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0, -5 )
+texture = ExtResource( 2 )
+texture_scale = 0.7
+color = Color( 1, 0.2, 0.494118, 1 )
+energy = 0.9
+shadow_color = Color( 0, 0, 0, 0.368627 )
+shadow_filter = 2
+shadow_filter_smooth = 15.0
+
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
-position = Vector2( -21, -18 )
-scale = Vector2( 1.65, 1.45 )
+position = Vector2( -1, -4 )
+scale = Vector2( 0.0888889, 0.266667 )
 rect = Rect2( -10, -10, 45, 45 )
 
 [node name="Detector" type="Area2D" parent="."]
@@ -130,13 +140,3 @@ position = Vector2( 0, -2 )
 texture = ExtResource( 1 )
 hframes = 5
 frame = 1
-
-[node name="Light2D" type="Light2D" parent="."]
-position = Vector2( 0, -5 )
-texture = ExtResource( 2 )
-texture_scale = 0.7
-color = Color( 1, 0.2, 0.494118, 1 )
-energy = 0.9
-shadow_color = Color( 0, 0, 0, 0.368627 )
-shadow_filter = 2
-shadow_filter_smooth = 15.0

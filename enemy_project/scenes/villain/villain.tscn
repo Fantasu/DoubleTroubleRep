@@ -272,9 +272,9 @@ air_max_velocity = 64.0
 air_turn_time = 0.2
 air_accel_time = 0.8
 air_fric_time = 1.0
-jump_size = 56.0
+jump_size = 45.0
 min_jump_size = 26.0
-fall_time = 0.95
+fall_time = 0.85
 
 [node name="Flip" type="Node2D" parent="."]
 position = Vector2( -2, -22 )
@@ -334,8 +334,8 @@ position = Vector2( 0, 4 )
 [node name="Position2D3" type="Position2D" parent="BreakPositions"]
 position = Vector2( 12, 4 )
 
-[node name="OneWayStatic" type="StaticBody2D" parent="."]
-collision_layer = 8
+[node name="OneWayStatic" type="KinematicBody2D" parent="."]
+collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OneWayStatic"]
 position = Vector2( -0.5, -41 )

@@ -86,7 +86,7 @@ func _physics_process(delta):
 	
 	_velocity.y += gravity * delta * _g_multiplier
 	
-	_velocity = move_and_slide_with_snap(_velocity, snap,Vector2.UP)
+	_velocity = move_and_slide_with_snap(_velocity, snap,Vector2.UP, true, 4 , deg2rad(45))
 
 
 func stand_state(delta):

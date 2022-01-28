@@ -29,7 +29,7 @@ func manage_animations():
 			animation_playback.travel('jump')
 			
 			
-	if Input.is_action_just_pressed("ui_down") && active == true:
+	if Input.is_action_just_pressed("ui_down") && active == true && is_on_floor():
 		animation_playback.travel("down_attack")
 
 
@@ -82,14 +82,14 @@ func platform_state(delta):
 	_velocity.x = clamp(_velocity.x, -ground_max_velocity, ground_max_velocity)
 	
 	if _direction != 0:
-		$OneWayStatic/CollisionShape2D.disabled = true
+#		$OneWayStatic/CollisionShape2D.disabled = true
 		_actual_state = STATE_MOVE
 	
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		jump()
 	
 	if not is_on_floor():
-		$OneWayStatic/CollisionShape2D.disabled = true
+#		$OneWayStatic/CollisionShape2D.disabled = true
 		_actual_state = STATE_AIR
 
 

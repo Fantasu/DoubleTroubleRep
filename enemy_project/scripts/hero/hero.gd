@@ -66,7 +66,7 @@ func _input(event):
 		self.global_position.y += 1
 
 		if one_way_colliding() is Ladder:
-			var area = one_way_colliding()
+			_ladder = one_way_colliding()
 			_inside_ladder = true
 			enter_in_ladder()
 

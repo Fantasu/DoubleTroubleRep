@@ -28,4 +28,7 @@ func _input(event):
 			villain.active = false
 			hero.active = true
 			
-		GameEvents.emit_signal("call_shake", 0.25)
+#		GameEvents.emit_signal("call_shake", 0.25)
+	if event.is_action_pressed("reset"):
+		
+		get_tree().reload_current_scene()

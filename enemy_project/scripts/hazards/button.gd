@@ -8,8 +8,10 @@ export (Array, NodePath) var activate_nodepaths_list
 export(String, 'Villain', 'Hero', 'Both') var target = 'Villain'
 export(String, 'press_stand', 'press_release') var mode = 'press_stand'
 
+var _bodies = []
 var activate_nodes = []
 var was_activated = false
+
 
 func _ready():
 	self.connect("body_entered", self, "on_body_press")
@@ -21,10 +23,12 @@ func _ready():
 
 
 func on_body_press(body):
+	if target == "Both" and body is Actor:
+		_bodies.append(body)
 	if (body.is_in_group(target) or (body is Actor and target == 'Both')) and was_activated == false:
 		activate()
 	
-	if (body.is_in_group(target) or (body is Actor and target == 'Both')) and was_activated == false:
+	if not (body.is_in_group(target)) and was_activated == false:
 		semi_activate()
 
 
@@ -33,6 +37,9 @@ func on_body_exited(body):
 		$AnimationPlayer.play("RESET")
 	
 	if (body.is_in_group(target) or (body is Actor and target == 'Both')) and mode == 'press_release':
+		_bodies.erase(body)
+		if target == "Both" and not _bodies.empty():
+			return
 		desactivate()
 
 

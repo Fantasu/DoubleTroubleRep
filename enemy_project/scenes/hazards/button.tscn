@@ -1,9 +1,10 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://assets/sprites/hazards/button/button__.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/hazards/button/button_1.png" type="Texture" id=1]
 [ext_resource path="res://scripts/hazards/button.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
 extents = Vector2( 11.5, 2 )
 
 [sub_resource type="RectangleShape2D" id=6]
@@ -99,6 +100,9 @@ z_index = -5
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -2, 0 )

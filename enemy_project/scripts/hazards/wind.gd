@@ -1,8 +1,7 @@
 extends Area2D
 
 export(String, 'left', 'right', 'up', 'down') var direction = 'up'
-export(String, 'Hero, Villain') var target = 'Hero'
-export(float) var villain_strength := 20.0
+export(float) var villain_strength := 35.0
 export(float) var hero_strength := 20.0
 
 var _dict_direc := {
@@ -11,11 +10,16 @@ var _dict_direc := {
 	'up' : Vector2.UP,
 	'down' : Vector2.DOWN
 }
+
 var _bodies := []
+
 
 func _ready():
 	self.connect("body_entered", self, "on_body_entered")
 	self.connect("body_exited", self, "on_body_exited")
+	$WindPart.emitting = true
+	$WindPart.rotation = _dict_direc[direction].angle()
+	$AudioStreamPlayer2D.play()
 
 
 func _physics_process(delta):

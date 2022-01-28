@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://scripts/hero/hero.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/light1.png" type="Texture" id=2]
@@ -10,50 +10,6 @@
 [sub_resource type="RectangleShape2D" id=64]
 extents = Vector2( 6.51863, 8.40638 )
 
-[sub_resource type="Animation" id=62]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:texture_scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.7 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:energy")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1.0 ]
-}
-
-[sub_resource type="Animation" id=63]
-resource_name = "lightanim"
-length = 0.7
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:energy")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 1.0, 0.9, 1.0 ]
-}
-
 [sub_resource type="CanvasItemMaterial" id=81]
 particles_animation = true
 particles_anim_h_frames = 3
@@ -63,31 +19,6 @@ particles_anim_loop = false
 [sub_resource type="Gradient" id=83]
 offsets = PoolRealArray( 0.00766284, 0.64751, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.955414, 1, 1, 1, 0 )
-
-[sub_resource type="GradientTexture" id=84]
-gradient = SubResource( 83 )
-
-[sub_resource type="ParticlesMaterial" id=82]
-emission_shape = 1
-emission_sphere_radius = 1.0
-flag_disable_z = true
-direction = Vector3( 0, -1, 0 )
-spread = 37.11
-gravity = Vector3( 0, -6, 0 )
-initial_velocity = 8.0
-initial_velocity_random = 1.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-damping = 2.0
-damping_random = 0.26
-angle = 142.1
-angle_random = 0.59
-scale = 0.4
-scale_random = 0.73
-color = Color( 0.701961, 0.701961, 0.701961, 1 )
-color_ramp = SubResource( 84 )
-anim_offset = 0.64
-anim_offset_random = 1.0
 
 [sub_resource type="RectangleShape2D" id=86]
 extents = Vector2( 3.88022, 8.55731 )
@@ -320,6 +251,8 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=95]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=96]
+
 [sub_resource type="AnimationNodeStateMachine" id=59]
 states/attack/node = SubResource( 88 )
 states/attack/position = Vector2( 170.769, 40 )
@@ -337,9 +270,9 @@ states/stand/node = SubResource( 53 )
 states/stand/position = Vector2( 376, 40 )
 states/walk/node = SubResource( 54 )
 states/walk/position = Vector2( 376, 142 )
-transitions = [ "walk", "stand", SubResource( 56 ), "stand", "walk", SubResource( 57 ), "jump", "fall", SubResource( 70 ), "fall", "land", SubResource( 72 ), "land", "stand", SubResource( 73 ), "stand", "preparejump", SubResource( 78 ), "preparejump", "jump", SubResource( 79 ), "land", "preparejump", SubResource( 80 ), "land", "walk", SubResource( 85 ), "stand", "attack", SubResource( 89 ), "attack", "stand", SubResource( 90 ), "walk", "attack", SubResource( 91 ), "stand", "climbing", SubResource( 94 ), "climbing", "stand", SubResource( 95 ) ]
+transitions = [ "walk", "stand", SubResource( 56 ), "stand", "walk", SubResource( 57 ), "jump", "fall", SubResource( 70 ), "fall", "land", SubResource( 72 ), "land", "stand", SubResource( 73 ), "stand", "preparejump", SubResource( 78 ), "preparejump", "jump", SubResource( 79 ), "land", "preparejump", SubResource( 80 ), "land", "walk", SubResource( 85 ), "stand", "attack", SubResource( 89 ), "attack", "stand", SubResource( 90 ), "walk", "attack", SubResource( 91 ), "stand", "climbing", SubResource( 94 ), "climbing", "stand", SubResource( 95 ), "fall", "climbing", SubResource( 96 ) ]
 start_node = "stand"
-graph_offset = Vector2( 61.4231, -132.67 )
+graph_offset = Vector2( 61.4231, -70.67 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=60]
 
@@ -362,15 +295,10 @@ shadow_color = Color( 0, 0, 0, 0.368627 )
 shadow_filter = 2
 shadow_filter_smooth = 15.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Light2D"]
-autoplay = "lightanim"
-anims/RESET = SubResource( 62 )
-anims/lightanim = SubResource( 63 )
-
 [node name="Flip" type="Node2D" parent="."]
 position = Vector2( 0, -10 )
 
-[node name="WalkParticle" type="Particles2D" parent="Flip"]
+[node name="WalkParticle" type="CPUParticles2D" parent="Flip"]
 material = SubResource( 81 )
 position = Vector2( -5.66256, 9.44931 )
 z_index = -1
@@ -379,8 +307,24 @@ amount = 12
 lifetime = 1.5
 randomness = 0.5
 local_coords = false
-process_material = SubResource( 82 )
 texture = ExtResource( 4 )
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2( 0, -1 )
+spread = 37.11
+gravity = Vector2( 0, -6 )
+initial_velocity = 8.0
+initial_velocity_random = 1.0
+damping = 2.0
+damping_random = 0.26
+angle = 142.1
+angle_random = 0.59
+scale_amount = 0.4
+scale_amount_random = 0.73
+color = Color( 0.701961, 0.701961, 0.701961, 1 )
+color_ramp = SubResource( 83 )
+anim_offset = 0.64
+anim_offset_random = 1.0
 
 [node name="Sprite" type="Sprite" parent="Flip"]
 position = Vector2( 0, -2 )
@@ -413,14 +357,12 @@ active = true
 parameters/playback = SubResource( 60 )
 
 [node name="ShakeCamera" parent="." instance=ExtResource( 5 )]
-position = Vector2( 0, 0 )
+position = Vector2( -0.39621, -7.46662 )
 smoothing_speed = 6.0
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
 volume_db = -10.0
-
-target_node = NodePath("..")
 
 [node name="OneWayRays" type="Node2D" parent="."]
 
@@ -435,4 +377,3 @@ position = Vector2( -4, 0 )
 enabled = true
 cast_to = Vector2( 0, 1 )
 collision_mask = 8
-

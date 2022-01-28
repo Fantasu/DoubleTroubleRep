@@ -1,17 +1,20 @@
 extends Area2D
 class_name _Button
 
+signal activated()
+signal desactivated()
 
 export (Array, NodePath) var activate_nodepaths_list
-var activate_nodes = []
-var was_activated = false
 export(String, 'Villain', 'Hero', 'Both') var target = 'Villain'
 export(String, 'press_stand', 'press_release') var mode = 'press_stand'
 
+var activate_nodes = []
+var was_activated = false
 
 func _ready():
 	self.connect("body_entered", self, "on_body_press")
 	self.connect("body_exited", self, "on_body_exited")
+	
 	for nodepath in activate_nodepaths_list:
 		var node = get_node(nodepath)
 		activate_nodes.append(node)
@@ -34,6 +37,7 @@ func on_body_exited(body):
 
 
 func activate():
+	emit_signal("activated")
 	$AnimationPlayer.play("pressbutton")
 	for node in activate_nodes:
 		if node.has_method("activate"):
@@ -46,6 +50,7 @@ func semi_activate():
 
 
 func desactivate():
+	emit_signal("desactivated")
 	$AnimationPlayer.play("RESET")
 	was_activated = false
 	for node in activate_nodes:

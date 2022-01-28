@@ -4,6 +4,8 @@ class_name Hero
 onready var animation_playback = $AnimationTree.get("parameters/playback")
 onready var jump_sfx = $JumpSound
 
+var forbidden_animations = ["attack"]
+
 
 func _ready():
 	$Flip/TorchHitBox.connect("body_entered", self, "torch_action")
@@ -27,15 +29,20 @@ func manage_animations():
 		
 		$Flip/WalkParticle.emitting = false
 		
+	elif _actual_state == STATE_CLIMBING:
+		animation_playback.travel('climbing')
+		$Flip/WalkParticle.emitting = false
 		
-	if Input.is_action_pressed("action") && is_on_floor():
+		
+	if Input.is_action_pressed("action") && is_on_floor() && active == true:
 		animation_playback.travel("attack")
 
 
 func jump():
-	jump_sfx.play()
-	_velocity.y = -jump_force
-	_was_jumped = true
+	if (not animation_playback.get_current_node() in forbidden_animations) and active:
+		jump_sfx.play()
+		_velocity.y = -jump_force
+		_was_jumped = true
 
 
 func torch_action(body):
@@ -46,31 +53,30 @@ func torch_action(body):
 
 
 func _get_direction() -> float:
-	if (not animation_playback.get_current_node() == "attack") and active:
+	if (not animation_playback.get_current_node() in forbidden_animations) and active:
 		return sign(Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"))
 	return 0.0
 
 
 func _input(event):
-	if event.is_action_pressed("ui_accept"):
-		active = not active
-		$ShakeCamera.current = active
-	
 	if event.is_action_pressed("ui_up") and _inside_ladder and is_instance_valid(_ladder) and _actual_state != STATE_CLIMBING and active:
 		enter_in_ladder()
 	
 	if event.is_action_pressed("ui_down") and one_way_colliding():
 		self.global_position.y += 1
-		var area = one_way_colliding()
 		_inside_ladder = true
 		enter_in_ladder()
 
+
+func setting_active_property(new_value):
+	active = new_value
+	$ShakeCamera.current = active
+	
 
 func one_way_colliding():
 	for child in $OneWayRays.get_children():
 		if child.is_colliding():
 			return child.get_collider().owner
-			break
 
 
 func enter_in_ladder():
@@ -80,15 +86,15 @@ func enter_in_ladder():
 	_actual_state = STATE_CLIMBING
 
 
-func climbing_state(delta):
+func climbing_state(_delta):
 	var _climb_direc = up_down()
 	self._velocity.y = _climb_direc * climb_speed
 	
 	if (_direction and not _climb_direc) or not _inside_ladder:
 		_velocity.y = 0
 		gravity = _default_gravity
-		if not _inside_ladder:
-			jump()
+#		if not _inside_ladder:
+#			jump()
 		_actual_state = STATE_MOVE
 
 

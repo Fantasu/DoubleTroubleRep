@@ -27,7 +27,7 @@ export(float, 0.0, 1.0) var buffering_time := 0.20
 export(float, 0.0, 1.0) var coyote_time := 0.20
 var flip_time = 0.1
 
-export(bool) var active = true
+var active = false setget setting_active_property
 
 onready var _default_gravity = 2 * jump_size / (pow(fall_time, 2)/2) 
 onready var _gravity_multiplier = jump_size/min_jump_size
@@ -154,6 +154,11 @@ func air_state(delta):
 		_fall_distance = 0.0
 		_actual_state = STATE_MOVE
 
+
+func setting_active_property(new_value):
+	active = new_value
+
+
 func calculate_fall_distance() -> void:
 	if _velocity.y > 0 and not _first_fall:
 		_initial_fall_pos = self.global_position.y
@@ -167,7 +172,7 @@ func calculate_fall_distance() -> void:
 		_fall_distance = 0.0
 
 
-func climbing_state(delta):
+func climbing_state(_delta):
 	pass
 
 

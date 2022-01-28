@@ -6,7 +6,8 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 11.5, 2 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=6]
+resource_local_to_scene = true
 extents = Vector2( 13, 6 )
 
 [sub_resource type="Animation" id=4]
@@ -94,6 +95,7 @@ tracks/1/keys = {
 }
 
 [node name="Button" type="Area2D"]
+z_index = -5
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 2 )
@@ -112,7 +114,7 @@ collision_layer = 4
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource( 2 )
+shape = SubResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 4 )

@@ -32,14 +32,12 @@ func on_body_exited(body):
 
 func activate():
 #	press animation
-	$Sprite.modulate = Color.red
 	for node in _activate_nodes:
 		node.activate()
 
 
 func desactivate():
 #	release animation
-	$Sprite.modulate = Color.black
 	for node in _activate_nodes:
 		node.desactivate()
 

@@ -1,9 +1,41 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/hazards/wind.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites/particles/wind.png" type="Texture" id=2]
+[ext_resource path="res://assets/sfx/wind.ogg" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 45, 24 )
+
+[sub_resource type="CanvasItemMaterial" id=2]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0, 0.104575, 0.620915, 1 )
+colors = PoolColorArray( 0.258824, 0.258824, 0.258824, 0, 1, 1, 1, 1, 0.785156, 0.785156, 0.785156, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 50, 1 )
+flag_disable_z = true
+spread = 15.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 67.0
+initial_velocity_random = 0.29
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = -14.7
+angle_random = 1.0
+color_ramp = SubResource( 5 )
+anim_speed_random = 0.84
+anim_offset = 1.0
+anim_offset_random = 1.0
 
 [node name="Wind" type="Area2D"]
 collision_layer = 4
@@ -12,3 +44,17 @@ script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="WindPart" type="Particles2D" parent="."]
+material = SubResource( 2 )
+position = Vector2( -67, 0 )
+emitting = false
+amount = 20
+lifetime = 3.5
+randomness = 0.29
+process_material = SubResource( 3 )
+texture = ExtResource( 2 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -15.0

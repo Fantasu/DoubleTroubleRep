@@ -12,25 +12,27 @@ func _ready():
 	update_animation()
 
 
-func _process(delta):
+func _process(_delta):
 	if $VisibilityNotifier2D.is_on_screen():
 		self.visible = true
 		if actual_state == States.ON:
+			$Light2D.enabled = true
 			$SmokeParticle.emitting = true
 	else:
 		self.visible = false
+		$Light2D.enabled = false
 		$SmokeParticle.emitting = false
 	
 
 func update_animation():
 	if actual_state == States.ON:
 		$AnimationPlayer.play("on")
-		$Light2D.visible = true
+		$Light2D.enabled = true
 		$SmokeParticle.emitting = true
 	
 	elif actual_state == States.OFF:
 		$AnimationPlayer.play("off")
-		$Light2D.visible = false
+		$Light2D.enabled = false
 		$SmokeParticle.emitting = false
 	
 

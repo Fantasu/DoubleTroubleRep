@@ -343,7 +343,7 @@ graph_offset = Vector2( 61.4231, -132.67 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=60]
 
-[node name="Hero" type="KinematicBody2D"]
+[node name="Hero" type="KinematicBody2D" groups=["Hero"]]
 z_index = 1
 script = ExtResource( 1 )
 ground_max_velocity = 95.0
@@ -420,8 +420,6 @@ smoothing_speed = 6.0
 stream = ExtResource( 6 )
 volume_db = -10.0
 
-target_node = NodePath("..")
-
 [node name="OneWayRays" type="Node2D" parent="."]
 
 [node name="RayCast2D" type="RayCast2D" parent="OneWayRays"]
@@ -435,4 +433,3 @@ position = Vector2( -4, 0 )
 enabled = true
 cast_to = Vector2( 0, 1 )
 collision_mask = 8
-

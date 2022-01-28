@@ -1,5 +1,8 @@
 extends Area2D
 
+class_name Ladder
+
+
 onready var collision_length = $CollisionShape2D.shape.extents
 
 func _ready():
@@ -9,12 +12,12 @@ func _ready():
 
 
 func on_body_entered(body):
-	if body is Hero:
+	if body.is_in_group("Hero"):
 		body._inside_ladder = true
 		body._ladder = self
 
 
 func on_body_exited(body):
-	if body is Hero:
+	if body.is_in_group("Hero"):
 		body._inside_ladder = false
 

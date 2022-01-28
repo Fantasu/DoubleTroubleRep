@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/sfx/shake1.wav" type="AudioStream" id=2]
 
 [node name="ShakeCamera" type="Camera2D"]
-limit_top = 0
+limit_top = -16
 limit_bottom = 248
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true

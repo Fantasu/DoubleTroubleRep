@@ -27,3 +27,5 @@ func _input(event):
 			_actual_actor = hero
 			villain.active = false
 			hero.active = true
+			
+		GameEvents.emit_signal("call_shake", 0.25)

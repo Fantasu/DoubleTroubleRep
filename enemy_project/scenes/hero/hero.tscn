@@ -280,7 +280,7 @@ graph_offset = Vector2( 61.4231, -70.67 )
 z_index = 1
 script = ExtResource( 1 )
 ground_max_velocity = 95.0
-jump_size = 30.0
+jump_size = 34.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.135971, -8.44565 )

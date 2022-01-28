@@ -3,10 +3,10 @@
 [ext_resource path="res://scripts/hazards/ladder.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 4.125, 44.875 )
+extents = Vector2( 7.611, 44.875 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 4, 0.5 )
+extents = Vector2( 7.669, 0.5 )
 
 [node name="Ladder" type="Area2D"]
 collision_layer = 4

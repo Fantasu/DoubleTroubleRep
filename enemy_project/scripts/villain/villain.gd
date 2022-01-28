@@ -29,7 +29,7 @@ func manage_animations():
 			animation_playback.travel('jump')
 			
 			
-	if Input.is_action_pressed("action") && is_on_floor() && active == true:
+	if Input.is_action_pressed("ui_down") && active == true:
 		animation_playback.travel("down_attack")
 
 
@@ -44,27 +44,24 @@ func call_shake(trauma: float):
 
 
 func jump():
-
 	if (not animation_playback.get_current_node() in forbidden_animations) and active:
 		jump_sfx.play()
 		_velocity.y = -jump_force
 		_was_jumped = true
 
+
+func destroy_tiles():
+	if not _tile_map:
+		get_tile()
+	if is_instance_valid(_tile_map):
+		for child in $BreakPositions.get_children():
+			var tile_pos = _tile_map.world_to_map(child.global_position)
+			if _tile_map.get_cellv(tile_pos) == 1:
+				_tile_map.set_cellv(tile_pos, -1)
+				_tile_map.update_bitmask_area(tile_pos)
+					
+
 func _input(event):
-	if event.is_action_pressed("ui_accept"):
-		active = not active
-		$ShakeCamera.current = active
-	
-	if event.is_action_pressed("ui_down") and active:
-		if not _tile_map:
-			get_tile()
-		if is_instance_valid(_tile_map):
-			for child in $BreakPositions.get_children():
-				var tile_pos = _tile_map.world_to_map(child.global_position)
-				
-				if _tile_map.get_cellv(tile_pos) == 1:
-					_tile_map.set_cellv(tile_pos, -1)
-	
 	if event.is_action_pressed("ui_up") and active:
 		$OneWayStatic/CollisionShape2D.disabled = false
 		_actual_state = STATE_PLATFORM

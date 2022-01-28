@@ -276,7 +276,7 @@ graph_offset = Vector2( 61.4231, -70.67 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=60]
 
-[node name="Hero" type="KinematicBody2D"]
+[node name="Hero" type="KinematicBody2D" groups=["Hero"]]
 z_index = 1
 script = ExtResource( 1 )
 ground_max_velocity = 95.0

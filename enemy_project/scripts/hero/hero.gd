@@ -40,6 +40,7 @@ func manage_animations():
 
 func jump():
 	if (not animation_playback.get_current_node() in forbidden_animations) and active:
+
 		jump_sfx.play()
 		_velocity.y = -jump_force
 		_was_jumped = true
@@ -64,8 +65,11 @@ func _input(event):
 	
 	if event.is_action_pressed("ui_down") and one_way_colliding():
 		self.global_position.y += 1
-		_inside_ladder = true
-		enter_in_ladder()
+
+		if one_way_colliding() is Ladder:
+			var area = one_way_colliding()
+			_inside_ladder = true
+			enter_in_ladder()
 
 
 func setting_active_property(new_value):

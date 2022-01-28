@@ -1,7 +1,7 @@
 extends KinematicBody2D
 class_name Actor
 
-enum {STATE_MOVE, STATE_STAND, STATE_AIR, STATE_CLIMBING}
+enum {STATE_MOVE, STATE_STAND, STATE_AIR, STATE_CLIMBING, STATE_PLATFORM}
 
 const TILE_SIZE = 16
 
@@ -77,6 +77,11 @@ func _physics_process(delta):
 		STATE_CLIMBING:
 			climbing_state(delta)
 		
+		
+		STATE_PLATFORM:
+			platform_state(delta)
+		
+		
 	_velocity.y += gravity * delta * _g_multiplier
 	
 	_velocity = move_and_slide(_velocity, Vector2.UP)
@@ -93,7 +98,7 @@ func stand_state(delta):
 	if _direction != 0:
 		_actual_state = STATE_MOVE
 	
-	if Input.is_action_just_pressed("jump") and active and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		jump()
 	
 	if not is_on_floor():
@@ -112,7 +117,7 @@ func move_state(delta):
 	else:
 		flip_time = 0.1
 	
-	if Input.is_action_just_pressed("jump") and active and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		jump()
 	
 	if not is_on_floor():
@@ -127,11 +132,13 @@ func air_state(delta):
 	if _direction == 0.0:
 		_velocity.x = max(abs(_velocity.x) - _air_fric, 0.0) * sign(_velocity.x)
 	
-	if Input.is_action_just_pressed("jump") and active:
+	if Input.is_action_just_pressed("jump"):
 		_jump_pressed = true
 	
-	if Input.is_action_just_pressed("jump") and active and coyote_time > 0 and not _was_jumped:
+	if Input.is_action_just_pressed("jump") and coyote_time > 0 and not _was_jumped:
 		_g_multiplier = 1
+		buffering_time = _default_buffering_time
+		_jump_pressed = false
 		jump()
 		
 	if (not Input.is_action_pressed("jump") and _was_jumped) or _velocity.y > 0:
@@ -157,6 +164,10 @@ func air_state(delta):
 
 func setting_active_property(new_value):
 	active = new_value
+  
+  
+func platform_state(delta):
+	pass
 
 
 func calculate_fall_distance() -> void:
@@ -183,6 +194,7 @@ func _get_direction() -> float:
 
 
 func jump():
+#	inside if active
 	_velocity.y = -jump_force
 	_was_jumped = true
 

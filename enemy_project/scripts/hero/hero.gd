@@ -33,9 +33,10 @@ func manage_animations():
 
 
 func jump():
-	jump_sfx.play()
-	_velocity.y = -jump_force
-	_was_jumped = true
+	if active and not animation_playback.get_current_node() == "attack":
+		jump_sfx.play()
+		_velocity.y = -jump_force
+		_was_jumped = true
 
 
 func torch_action(body):
@@ -61,9 +62,10 @@ func _input(event):
 	
 	if event.is_action_pressed("ui_down") and one_way_colliding():
 		self.global_position.y += 1
-		var area = one_way_colliding()
-		_inside_ladder = true
-		enter_in_ladder()
+		if one_way_colliding() is Ladder:
+			var area = one_way_colliding()
+			_inside_ladder = true
+			enter_in_ladder()
 
 
 func one_way_colliding():

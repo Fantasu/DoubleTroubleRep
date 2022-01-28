@@ -1,6 +1,8 @@
 extends StaticBody2D
 
 
+
+
 func _ready():
 	$Area2D.connect("body_exited", self, 'on_body_exited_break')
 	pass

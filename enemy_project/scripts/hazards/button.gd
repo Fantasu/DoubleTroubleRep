@@ -18,18 +18,18 @@ func _ready():
 
 
 func on_body_press(body):
-	if (body.name == target or (body is Actor and target == 'Both')) and was_activated == false:
+	if (body.is_in_group(target) or (body is Actor and target == 'Both')) and was_activated == false:
 		activate()
 	
-	if (body.name == target or (body is Actor and target == 'Both')) and was_activated == false:
+	if (body.is_in_group(target) or (body is Actor and target == 'Both')) and was_activated == false:
 		semi_activate()
 
 
 func on_body_exited(body):
-	if (body.name == target or (body is Actor and target == 'Both')) and was_activated == false:
+	if (body.is_in_group(target) or (body is Actor and target == 'Both')) and was_activated == false:
 		$AnimationPlayer.play("RESET")
 	
-	if (body.name == target or (body is Actor and target == 'Both')) and mode == 'press_release':
+	if (body.is_in_group(target) or (body is Actor and target == 'Both')) and mode == 'press_release':
 		desactivate()
 
 

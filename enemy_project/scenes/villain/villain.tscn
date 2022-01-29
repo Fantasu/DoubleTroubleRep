@@ -261,7 +261,7 @@ graph_offset = Vector2( -139.284, 6.88563 )
 [sub_resource type="AnimationNodeStateMachinePlayback" id=3]
 
 [sub_resource type="RectangleShape2D" id=45]
-extents = Vector2( 15.5, 1.5 )
+extents = Vector2( 14, 1.5 )
 
 [node name="Villain" type="KinematicBody2D" groups=["Villain"]]
 script = ExtResource( 2 )
@@ -338,7 +338,7 @@ position = Vector2( 12, 4 )
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OneWayStatic"]
-position = Vector2( -0.5, -41 )
+position = Vector2( 0, -41 )
 shape = SubResource( 45 )
 one_way_collision = true
 

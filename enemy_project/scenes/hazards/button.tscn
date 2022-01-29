@@ -37,6 +37,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 13, 6 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("StaticBody2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -2 ) ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "pressbutton"
@@ -60,10 +72,22 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 13, 6 ), Vector2( 13, 3 ) ]
+"values": [ Vector2( 13, 3 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("StaticBody2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 1 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -94,15 +118,26 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 13, 5 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("StaticBody2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
 
 [node name="Button" type="Area2D"]
 z_index = -5
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
+target = "Both"
+mode = "press_release"
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -2, 0 )
@@ -114,10 +149,12 @@ position = Vector2( -0.5, -6 )
 shape = SubResource( 1 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 0, -2 )
 collision_layer = 4
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 0, 2 )
 shape = SubResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

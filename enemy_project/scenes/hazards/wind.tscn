@@ -5,7 +5,8 @@
 [ext_resource path="res://assets/sfx/wind.ogg" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 45, 24 )
+resource_local_to_scene = true
+extents = Vector2( 45, 78.015 )
 
 [sub_resource type="CanvasItemMaterial" id=2]
 particles_animation = true
@@ -13,12 +14,12 @@ particles_anim_h_frames = 4
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="Gradient" id=4]
+[sub_resource type="Gradient" id=353]
 offsets = PoolRealArray( 0, 0.104575, 0.620915, 1 )
 colors = PoolColorArray( 0.258824, 0.258824, 0.258824, 0, 1, 1, 1, 1, 0.785156, 0.785156, 0.785156, 1, 0, 0, 0, 0 )
 
-[sub_resource type="GradientTexture" id=5]
-gradient = SubResource( 4 )
+[sub_resource type="GradientTexture" id=354]
+gradient = SubResource( 353 )
 
 [sub_resource type="ParticlesMaterial" id=3]
 emission_shape = 2
@@ -32,12 +33,13 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 angle = -14.7
 angle_random = 1.0
-color_ramp = SubResource( 5 )
+color_ramp = SubResource( 354 )
 anim_speed_random = 0.84
 anim_offset = 1.0
 anim_offset_random = 1.0
 
 [node name="Wind" type="Area2D"]
+z_index = -5
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )

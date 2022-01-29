@@ -7,6 +7,14 @@ export (float, 0.1, 10) var return_duration = 2.5
 
 var true_start_position = Vector2.ZERO
 
+export (NodePath) onready var first_target = get_node(first_target)
+onready var target_camera = first_target.get_node("ShakeCamera")
+
+
+func _ready():
+	yield(get_tree().current_scene, "ready")
+	start_animation(target_camera.get_camera_screen_center())
+
 
 func start_animation(target_position):
 	GameEvents.emit_signal("call_bars", 0)
@@ -30,20 +38,7 @@ func start_animation(target_position):
 	$Tween.start()
 	yield($Tween, "tween_all_completed")
 
-	GameEvents.emit_signal("call_bars", 1)
-	self.emit_signal("show_map_ended")
-	get_tree().paused = false
-
-
-func return_to_origin(start_position):
-	GameEvents.emit_signal("call_bars", 0)
-	get_tree().paused = true
-	$Camera2D.current = true
-	
-	$Tween.interpolate_property($Camera2D, "global_position", start_position, true_start_position, return_duration, Tween.TRANS_QUINT, Tween.EASE_IN_OUT)
-	$Tween.start()
-	yield($Tween, "tween_all_completed")
-
+	target_camera.current = true
 	GameEvents.emit_signal("call_bars", 1)
 	self.emit_signal("show_map_ended")
 	get_tree().paused = false

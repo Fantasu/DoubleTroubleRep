@@ -1,4 +1,4 @@
-[gd_scene load_steps=235 format=2]
+[gd_scene load_steps=236 format=2]
 
 [ext_resource path="res://assets/sprites/tilemaps/fundo_do_castelo.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/tilemaps/escada.png" type="Texture" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://scenes/gameplaystate/end_zone.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/levels/third_level.tscn" type="PackedScene" id=19]
 [ext_resource path="res://assets/music/lonelyhood.ogg" type="AudioStream" id=20]
+[ext_resource path="res://scenes/camera/cameraanimation.tscn" type="PackedScene" id=21]
 
 [sub_resource type="TileSet" id=299]
 0/name = "background1.png 0"
@@ -1852,11 +1853,11 @@ hero = NodePath("../Hero")
 villain = NodePath("../Villain")
 
 [node name="Hero" parent="." instance=ExtResource( 11 )]
-position = Vector2( -280, 206 )
+position = Vector2( -407, 192 )
 collision_mask = 4
 
 [node name="Villain" parent="." instance=ExtResource( 9 )]
-position = Vector2( -313, 205 )
+position = Vector2( -280, 207 )
 collision_layer = 2
 collision_mask = 4
 
@@ -2028,3 +2029,17 @@ next_level = ExtResource( 19 )
 stream = ExtResource( 20 )
 volume_db = -20.0
 autoplay = true
+
+[node name="CameraAnimation" parent="." instance=ExtResource( 21 )]
+duration_per_position = 2.0
+return_duration = 4.5
+first_target = NodePath("../Hero")
+
+[node name="Position2D4" type="Position2D" parent="CameraAnimation"]
+position = Vector2( 164, 156 )
+
+[node name="Position2D3" type="Position2D" parent="CameraAnimation"]
+position = Vector2( 529, 153 )
+
+[node name="Position2D2" type="Position2D" parent="CameraAnimation"]
+position = Vector2( 1005, 148 )

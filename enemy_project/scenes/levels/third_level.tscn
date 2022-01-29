@@ -1,4 +1,4 @@
-[gd_scene load_steps=380 format=2]
+[gd_scene load_steps=381 format=2]
 
 [ext_resource path="res://scenes/villain/villain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/hero/hero.tscn" type="PackedScene" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://scenes/hazards/button.tscn" type="PackedScene" id=18]
 [ext_resource path="res://assets/sprites/hazards/button/button__.png" type="Texture" id=19]
 [ext_resource path="res://assets/sprites/tilemaps/breakablepng.png" type="Texture" id=20]
+[ext_resource path="res://scenes/camera/cameraanimation.tscn" type="PackedScene" id=21]
 
 [sub_resource type="TileSet" id=299]
 0/name = "background1.png 0"
@@ -2861,7 +2862,7 @@ tile_data = PoolIntArray( -55, 4, 0, -54, 4, 1, -53, 4, 1, -52, 4, 1, -51, 4, 1,
 
 [node name="Filter" type="CanvasModulate" parent="."]
 z_index = 2
-color = Color( 1, 0.564706, 0.564706, 1 )
+color = Color( 0.768627, 0.658824, 0.658824, 1 )
 
 [node name="FrontLayer" parent="." instance=ExtResource( 11 )]
 
@@ -2912,12 +2913,13 @@ position = Vector2( 22, -1 )
 
 [node name="Doors" type="Node" parent="."]
 
-[node name="Door" parent="Doors" instance=ExtResource( 17 )]
-position = Vector2( -458, 145 )
-
 [node name="Door2" parent="Doors" instance=ExtResource( 17 )]
 modulate = Color( 1, 1, 1, 1 )
 position = Vector2( -60, 128 )
+
+[node name="Door" parent="Doors" instance=ExtResource( 17 )]
+modulate = Color( 1, 1, 1, 1 )
+position = Vector2( -455, 144 )
 
 [node name="Door3" parent="Doors" instance=ExtResource( 17 )]
 modulate = Color( 1, 1, 1, 1 )
@@ -3009,10 +3011,23 @@ anims/RESET = SubResource( 369 )
 anims/pressbutton = SubResource( 370 )
 anims/semipress = SubResource( 371 )
 
+[node name="CameraAnimation" parent="." instance=ExtResource( 21 )]
+duration_per_position = 2.0
+return_duration = 4.5
+first_target = NodePath("../Hero")
+
+[node name="Position2D4" type="Position2D" parent="CameraAnimation"]
+position = Vector2( -332, 142 )
+
+[node name="Position2D" type="Position2D" parent="CameraAnimation"]
+position = Vector2( 163, 152 )
+
+[node name="Position2D2" type="Position2D" parent="CameraAnimation"]
+position = Vector2( 1185, 136 )
+
 [editable path="Winds/Wind"]
 [editable path="Winds/Wind3"]
 [editable path="Winds/Wind2"]
-[editable path="Doors/Door"]
 [editable path="Buttons/Button"]
 [editable path="Buttons/Button3"]
 [editable path="Buttons/Button2"]

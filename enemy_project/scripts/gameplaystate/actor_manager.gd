@@ -3,6 +3,7 @@ extends Node
 export (NodePath) onready var hero = get_node(hero)
 export (NodePath) onready var villain = get_node(villain)
 
+
 onready var hero_cam = hero.get_node("ShakeCamera")
 onready var villain_cam = villain.get_node("ShakeCamera")
 
@@ -28,7 +29,4 @@ func _input(event):
 			villain.active = false
 			hero.active = true
 			
-#		GameEvents.emit_signal("call_shake", 0.25)
-	if event.is_action_pressed("reset"):
-		
-		get_tree().reload_current_scene()
+		GameEvents.emit_signal("call_shake", 0.25)

@@ -5,9 +5,12 @@
 [node name="CameraAnimation" type="Node2D"]
 pause_mode = 2
 script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "this node needs to be the last in the tree"
+}
 
 [node name="Camera2D" type="Camera2D" parent="."]
-limit_top = 0
-limit_bottom = 216
+limit_top = -16
+limit_bottom = 248
 
 [node name="Tween" type="Tween" parent="."]

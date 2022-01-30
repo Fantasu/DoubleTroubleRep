@@ -12,14 +12,18 @@ onready var target_camera = first_target.get_node("ShakeCamera")
 
 
 func _ready():
-	yield(get_tree().current_scene, "ready")
-	start_animation(target_camera.get_camera_screen_center())
+	$Camera2D.global_position = first_target.global_position
+	get_tree().paused = true
 
+
+func virtual_start_animation():
+	start_animation(target_camera.global_position)
+	
 
 func start_animation(target_position):
+	get_tree().paused = true
 	GameEvents.emit_signal("call_bars", 0)
 	$Camera2D.current = true
-	get_tree().paused = true
 	
 	var last_position = target_position
 	true_start_position = last_position
@@ -40,5 +44,5 @@ func start_animation(target_position):
 
 	target_camera.current = true
 	GameEvents.emit_signal("call_bars", 1)
-	self.emit_signal("show_map_ended")
+	GameEvents.emit_signal("animation_ended")
 	get_tree().paused = false

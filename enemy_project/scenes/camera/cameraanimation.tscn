@@ -10,6 +10,7 @@ __meta__ = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+current = true
 limit_top = -16
 limit_bottom = 248
 

@@ -1,0 +1,132 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/fonts/rainyhearts.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/music/victory1.ogg" type="AudioStream" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "PlayCredits"
+length = 20.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("CenterContainer/Label:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 20 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 44, 60 ), Vector2( 44, -1150 ) ]
+}
+
+[node name="Credits" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 10.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CenterContainer"]
+margin_left = 44.0
+margin_top = 60.0
+margin_right = 340.0
+margin_bottom = 1299.0
+custom_fonts/font = SubResource( 1 )
+text = "
+
+
+
+
+
+
+
+
+
+
+
+Diretor
+
+Bruno Daniel
+
+
+
+
+
+Programação
+
+Bruno Daniel 
+Raylandosn Cesário
+
+
+
+
+
+Pixel Artist
+
+Arthur César
+
+
+
+
+
+Arte da Capa
+
+Itamar Bezerra
+
+
+
+
+
+Músicas
+
+Air - Alenxandr Zhelanov
+
+Accíon - djsaryon
+
+Journey to the East Rocks - Alexandr Zhelanov
+
+Lonelyhood - yd
+
+Victory1 - The Cynic Project
+
+
+
+
+
+
+
+
+
+
+
+
+Obrigado por Jogar."
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "PlayCredits"
+anims/PlayCredits = SubResource( 2 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -30.0
+autoplay = true

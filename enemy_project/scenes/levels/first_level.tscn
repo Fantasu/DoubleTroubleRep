@@ -1,4 +1,4 @@
-[gd_scene load_steps=229 format=2]
+[gd_scene load_steps=235 format=2]
 
 [ext_resource path="res://scenes/hero/hero.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/tilemaps/fundo_do_castelo.png" type="Texture" id=2]
@@ -19,10 +19,13 @@
 [ext_resource path="res://scenes/hazards/ladder.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/levels/second_level.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/gameplaystate/end_zone.tscn" type="PackedScene" id=19]
-[ext_resource path="res://assets/sprites/tutorial1.png" type="Texture" id=20]
+[ext_resource path="res://assets/sprites/tutoriais/tutorial1.png" type="Texture" id=20]
 [ext_resource path="res://assets/music/journey_to_the_east_rocks.ogg" type="AudioStream" id=21]
-[ext_resource path="res://assets/sprites/tutorial3.png" type="Texture" id=22]
+[ext_resource path="res://assets/sprites/tutoriais/tutorial3.png" type="Texture" id=22]
 [ext_resource path="res://scenes/camera/cameraanimation.tscn" type="PackedScene" id=23]
+[ext_resource path="res://assets/sprites/tutoriais/tutorial7.png" type="Texture" id=24]
+[ext_resource path="res://assets/sprites/tutoriais/tutorial4.png" type="Texture" id=25]
+[ext_resource path="res://scripts/gameplaystate/fade_animation.gd" type="Script" id=26]
 
 [sub_resource type="RectangleShape2D" id=322]
 resource_local_to_scene = true
@@ -813,7 +816,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 [sub_resource type="ConvexPolygonShape2D" id=391]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
-[sub_resource type="TileSet" id=340]
+[sub_resource type="TileSet" id=395]
 0/name = "Cave1"
 0/texture = ExtResource( 5 )
 0/tex_offset = Vector2( 0, 0 )
@@ -1740,6 +1743,65 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 3/z_index = 0
 script = ExtResource( 7 )
 
+[sub_resource type="Animation" id=392]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=393]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../../CameraAnimation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "virtual_start_animation"
+} ]
+}
+
+[sub_resource type="Animation" id=394]
+resource_name = "fadeout"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
 [node name="FirstLevel" type="Node2D"]
 
 [node name="CameraAnimation" parent="." instance=ExtResource( 23 )]
@@ -1751,7 +1813,6 @@ first_target = NodePath("../Hero")
 position = Vector2( 1185, 136 )
 
 [node name="ActorManager" parent="." instance=ExtResource( 8 )]
-pause_mode = 0
 hero = NodePath("../Hero")
 villain = NodePath("../Villain")
 
@@ -1836,10 +1897,10 @@ activate_nodepaths_list = [ NodePath("../../Doors/Door7") ]
 position = Vector2( 721, 166 )
 
 [node name="Torch2" parent="Torchs" instance=ExtResource( 16 )]
-position = Vector2( -140, 112 )
+position = Vector2( -102, 79 )
 
 [node name="Torch9" parent="Torchs" instance=ExtResource( 16 )]
-position = Vector2( -299, 102 )
+position = Vector2( -293, 103 )
 
 [node name="Torch3" parent="Torchs" instance=ExtResource( 16 )]
 position = Vector2( 36, 162 )
@@ -1878,15 +1939,21 @@ shape = SubResource( 336 )
 
 [node name="Tutorials" type="Node" parent="."]
 
-[node name="Tutorial1" type="Sprite" parent="Tutorials"]
-position = Vector2( 458, 125 )
-z_index = -5
+[node name="1" type="Sprite" parent="Tutorials"]
+position = Vector2( 457, 217 )
 texture = ExtResource( 20 )
 
 [node name="Tutorial3" type="Sprite" parent="Tutorials"]
-position = Vector2( -354, 150 )
-z_index = -6
+position = Vector2( -88, 194 )
 texture = ExtResource( 22 )
+
+[node name="Tutorial4" type="Sprite" parent="Tutorials"]
+position = Vector2( -356, 217 )
+texture = ExtResource( 25 )
+
+[node name="Tutorial7" type="Sprite" parent="Tutorials"]
+position = Vector2( -219, 200 )
+texture = ExtResource( 24 )
 
 [node name="Background" type="TileMap" parent="."]
 z_index = -10
@@ -1906,7 +1973,7 @@ format = 1
 tile_data = PoolIntArray( 65517, 1610612737, 1, 65592, 1, 0, 65595, 3, 0, 65600, 1, 65538, 65605, 1, 0, 65608, 1, 131073, 65614, 1, 0, 196580, 1610612737, 1, 196589, 1, 4, 131117, 1, 131073, 262137, 1610612737, 65539, 262139, 3, 0, 262141, 1, 0, 196611, 1610612737, 65539, 196612, 1, 0, 196613, 3, 0, 196623, 3, 0, 196643, 1, 0, 196646, 3, 0, 196649, 1, 0, 196666, 1, 4, 196671, 1, 3, 196680, 4, 0, 196682, 1, 65539, 196684, 1, 65540, 327660, 1, 0, 327669, 1, 0, 262151, 1610612737, 65539, 262194, 0, 0, 262210, 0, 0, 393199, 1, 65536, 393204, 1610612737, 65539, 393212, 5, 0, 327690, 1, 65536, 327693, 5, 0, 327709, 1, 0, 327721, 1, 4, 327730, 0, 0, 327746, 0, 0, 458736, 3, 0, 458738, 1, 65536, 458740, 2, 0, 393217, 1, 2, 393220, 1610612737, 1, 393255, 1, 131077, 393266, 0, 0, 393268, 3, 0, 393269, 1, 0, 393282, 0, 0, 458765, 1610612737, 1, 458767, 1, 4, 458778, 3, 0, 458785, 1610612737, 65536, 458786, 1, 4, 458802, 0, 0, 458812, 1, 131073, 458814, 1, 0, 458818, 0, 0, 458822, 1, 65537, 458825, 1, 0, 589818, 1610612737, 1, 589819, 1, 4, 524338, 0, 0, 524344, 1, 65537, 524346, 2, 0, 524352, 1, 65538, 524354, 0, 0, 524355, 5, 0, 655332, 1, 0, 655350, 1, 3, 589829, 1, 0, 589834, 1, 131077, 589838, 1, 65536, 589845, 1, 0, 589858, 1, 0, 589872, 1, 65538, 589874, 0, 0, 589890, 0, 0, 720867, 1, 65536, 720881, 1, 4, 655368, 1, 4, 655380, 1610612739, 0, 655402, 5, 0, 655410, 0, 0, 655426, 0, 0, 655430, 1, 131077, 786404, 1610612737, 65536, 786405, 1, 4, 786407, 1610612737, 1, 786409, 1, 2, 786410, 4, 0, 720907, 1, 3, 720921, 1, 4, 720922, 1, 2, 720926, 1, 131077, 720943, 1, 2, 720946, 0, 0, 720962, 0, 0, 786450, 1, 2, 786453, 1610612737, 131072, 786454, 1, 3, 786456, 1610612737, 1, 786466, 1610612737, 1, 786476, 1, 2, 786495, 1, 0, 786498, 0, 0, 852034, 0, 0, 917570, 0, 0 )
 
 [node name="CaveTilemap" type="TileMap" parent="."]
-tile_set = SubResource( 340 )
+tile_set = SubResource( 395 )
 cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
 collision_layer = 4
@@ -1916,7 +1983,7 @@ tile_data = PoolIntArray( -131110, 0, 0, -131109, 0, 1, -131108, 0, 1, -131107, 
 
 [node name="Filter" type="CanvasModulate" parent="."]
 z_index = 2
-color = Color( 0.45098, 0.298039, 0.298039, 1 )
+color = Color( 0.756863, 0.47451, 0.47451, 1 )
 
 [node name="FrontLayer" parent="." instance=ExtResource( 11 )]
 
@@ -1933,13 +2000,32 @@ position = Vector2( -490, 152 )
 position = Vector2( 1193, 175 )
 
 [node name="EndZone" parent="." instance=ExtResource( 19 )]
-position = Vector2( 1183, 145 )
+position = Vector2( 1198, 152 )
 next_level = ExtResource( 18 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 stream = ExtResource( 21 )
 volume_db = -25.0
 autoplay = true
+
+[node name="FadeAnimation" type="CanvasLayer" parent="."]
+pause_mode = 2
+script = ExtResource( 26 )
+
+[node name="Fade" type="ColorRect" parent="FadeAnimation"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FadeAnimation/Fade"]
+autoplay = "fade"
+anims/RESET = SubResource( 392 )
+anims/fade = SubResource( 393 )
+anims/fadeout = SubResource( 394 )
 
 [editable path="Ladders/Ladder2"]
 [editable path="Ladders/Ladder4"]

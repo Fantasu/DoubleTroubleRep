@@ -362,7 +362,7 @@ smoothing_speed = 6.0
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
-volume_db = -10.0
+volume_db = -20.0
 
 [node name="OneWayRays" type="Node2D" parent="."]
 

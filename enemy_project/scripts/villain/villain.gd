@@ -29,7 +29,7 @@ func manage_animations():
 			animation_playback.travel('jump')
 			
 			
-	if Input.is_action_just_pressed("action") && active == true && is_on_floor():
+	if Input.is_action_pressed("action") && active == true && is_on_floor():
 		animation_playback.travel("down_attack")
 
 
@@ -60,12 +60,6 @@ func destroy_tiles():
 				_tile_map.set_cellv(tile_pos, -1)
 				_tile_map.update_bitmask_area(tile_pos)
 					
-
-func _input(event):
-	if event.is_action_pressed("ui_up") and active:
-		$OneWayStatic/CollisionShape2D.disabled = false
-		_actual_state = STATE_PLATFORM
-
 
 func get_tile():
 	if $BreakTileRay.is_colliding():

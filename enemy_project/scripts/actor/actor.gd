@@ -1,7 +1,7 @@
 extends KinematicBody2D
 class_name Actor
 
-enum {STATE_MOVE, STATE_STAND, STATE_AIR, STATE_CLIMBING, STATE_PLATFORM}
+enum {STATE_MOVE, STATE_STAND, STATE_AIR, STATE_CLIMBING}
 
 const TILE_SIZE = 16
 
@@ -76,10 +76,6 @@ func _physics_process(delta):
 		
 		STATE_CLIMBING:
 			climbing_state(delta)
-		
-		
-		STATE_PLATFORM:
-			platform_state(delta)
 	
 	
 	snap = Vector2.ZERO if _was_jumped or not is_on_floor() or _actual_state == STATE_CLIMBING or gravity == 0 else Vector2.DOWN * 8
@@ -168,10 +164,6 @@ func setting_active_property(new_value):
 	active = new_value
   
   
-func platform_state(delta):
-	pass
-
-
 func calculate_fall_distance() -> void:
 	if _velocity.y > 0 and not _first_fall:
 		_initial_fall_pos = self.global_position.y

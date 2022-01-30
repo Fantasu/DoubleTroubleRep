@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/boss/boss_hand.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=4]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 10, 0.360733 )
+
+[node name="BossHand" type="KinematicBody2D"]
+scale = Vector2( 1.83219, 1.83219 )
+collision_layer = 256
+collision_mask = 4
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 4 )
+
+[node name="Icon" type="Sprite" parent="."]
+position = Vector2( -3.8147e-06, -1.90735e-06 )
+scale = Vector2( 0.3125, 0.3125 )
+texture = ExtResource( 2 )
+
+[node name="StunArea" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 3
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StunArea"]
+shape = SubResource( 2 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 0, -9.63927 )
+shape = SubResource( 5 )
+disabled = true
+one_way_collision = true

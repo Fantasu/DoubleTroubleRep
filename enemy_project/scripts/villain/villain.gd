@@ -5,6 +5,7 @@ class_name Villain
 onready var animation_playback = $AnimationTree.get("parameters/playback")
 onready var jump_sfx = $JumpSound
 var _tile_map : TileMap
+var _down_atack = false
 
 var forbidden_animations = ["down_attack", "side_attack"]
 
@@ -30,11 +31,13 @@ func manage_animations():
 			
 			
 	if Input.is_action_pressed("action") && active == true && is_on_floor():
+		_down_atack = true
+		_direction = 0.0
 		animation_playback.travel("down_attack")
 
 
 func _get_direction() -> float:
-	if (not animation_playback.get_current_node() in forbidden_animations) and active:
+	if (not animation_playback.get_current_node() in forbidden_animations) and active and not _down_atack:
 		return sign(Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"))
 	return 0.0
 
@@ -72,3 +75,4 @@ func get_tile():
 func setting_active_property(new_value):
 	active = new_value
 	$ShakeCamera.current = active
+

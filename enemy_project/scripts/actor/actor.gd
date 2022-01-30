@@ -1,7 +1,9 @@
 extends KinematicBody2D
 class_name Actor
 
-enum {STATE_MOVE, STATE_STAND, STATE_AIR, STATE_CLIMBING}
+
+enum {STATE_MOVE, STATE_STAND, STATE_AIR, STATE_CLIMBING, STATE_STUNED}
+
 
 const TILE_SIZE = 16
 
@@ -26,6 +28,8 @@ onready var jump_force = sqrt(2 * gravity * jump_size)
 export(float, 0.0, 1.0) var buffering_time := 0.20
 export(float, 0.0, 1.0) var coyote_time := 0.20
 var flip_time = 0.1
+export(float, 0.0, 5.0) var stuned_time := 3.0
+var default_stuned = stuned_time
 
 var active = false setget setting_active_property
 
@@ -76,6 +80,10 @@ func _physics_process(delta):
 		
 		STATE_CLIMBING:
 			climbing_state(delta)
+
+		
+		STATE_STUNED:
+			stuned_state(delta)
 	
 	
 	snap = Vector2.ZERO if _was_jumped or not is_on_floor() or _actual_state == STATE_CLIMBING or gravity == 0 else Vector2.DOWN * 8
@@ -159,11 +167,23 @@ func air_state(delta):
 		_fall_distance = 0.0
 		_actual_state = STATE_MOVE
 
+func stuned_state(delta):
+	self.modulate = Color.rebeccapurple
+	if not _inside_wind:
+		_velocity.x = max(abs(_velocity.x) - _ground_fric, 0.0) * sign(_velocity.x)
+	
+	_velocity.x = clamp(_velocity.x, -ground_max_velocity, ground_max_velocity)
+	stuned_time -= delta
+	if stuned_time < 0:
+		stuned_time = default_stuned
+		self.modulate = Color.white
+		_actual_state = STATE_MOVE
+
 
 func setting_active_property(new_value):
 	active = new_value
-  
-  
+
+
 func calculate_fall_distance() -> void:
 	if _velocity.y > 0 and not _first_fall:
 		_initial_fall_pos = self.global_position.y
@@ -210,3 +230,6 @@ func manage_animations():
 func flip_nodes():
 	if _direction:
 		$Flip.scale.x = _direction
+
+
+

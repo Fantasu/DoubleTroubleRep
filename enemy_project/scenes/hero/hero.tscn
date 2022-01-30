@@ -377,3 +377,17 @@ position = Vector2( -4, 0 )
 enabled = true
 cast_to = Vector2( 0, 1 )
 collision_mask = 8
+
+[node name="DamageRays" type="Node2D" parent="."]
+
+[node name="DamageRay" type="RayCast2D" parent="DamageRays"]
+position = Vector2( 5.36862, -0.0701542 )
+enabled = true
+cast_to = Vector2( 0, 6.006 )
+collision_mask = 512
+
+[node name="DamageRay2" type="RayCast2D" parent="DamageRays"]
+position = Vector2( -5.64923, 0 )
+enabled = true
+cast_to = Vector2( 0, 6.006 )
+collision_mask = 512

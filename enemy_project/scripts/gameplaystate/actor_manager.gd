@@ -12,6 +12,10 @@ var _actual_actor : Actor
 
 
 func _ready():
+	GameEvents.connect("animation_ended", self, "start")
+
+
+func start():
 	_actual_actor = hero
 	hero.active = true
 	villain.active = false

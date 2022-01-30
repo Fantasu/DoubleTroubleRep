@@ -30,7 +30,7 @@ func manage_animations():
 			animation_playback.travel('jump')
 			
 			
-	if Input.is_action_just_pressed("action") && active == true && is_on_floor():
+	if Input.is_action_pressed("action") && active == true && is_on_floor():
 		_down_atack = true
 		_direction = 0.0
 		animation_playback.travel("down_attack")
@@ -63,8 +63,6 @@ func destroy_tiles():
 				_tile_map.set_cellv(tile_pos, -1)
 				_tile_map.update_bitmask_area(tile_pos)
 					
-	_down_atack = false
-
 
 func get_tile():
 	if $BreakTileRay.is_colliding():

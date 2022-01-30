@@ -22,7 +22,7 @@ func _ready():
 	$AudioStreamPlayer2D.play()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if not _bodies.empty():
 		for body in _bodies:
 			if body is Villain:

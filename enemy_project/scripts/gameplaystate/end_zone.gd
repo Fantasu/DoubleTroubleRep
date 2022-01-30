@@ -14,6 +14,8 @@ func on_actor_enter(body):
 		actor_count += 1
 		
 	if actor_count == 1:
+		GameEvents.emit_signal("fadeout")
+		yield(get_tree().create_timer(1.5), "timeout")
 		get_tree().change_scene_to(next_level)
 
 

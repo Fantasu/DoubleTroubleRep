@@ -1,7 +1,9 @@
 extends KinematicBody2D
 class_name Actor
 
+
 enum {STATE_MOVE, STATE_STAND, STATE_AIR, STATE_CLIMBING, STATE_STUNED}
+
 
 const TILE_SIZE = 16
 
@@ -78,7 +80,7 @@ func _physics_process(delta):
 		
 		STATE_CLIMBING:
 			climbing_state(delta)
-		
+
 		
 		STATE_STUNED:
 			stuned_state(delta)
@@ -180,7 +182,7 @@ func stuned_state(delta):
 
 func setting_active_property(new_value):
 	active = new_value
- 
+
 
 func calculate_fall_distance() -> void:
 	if _velocity.y > 0 and not _first_fall:

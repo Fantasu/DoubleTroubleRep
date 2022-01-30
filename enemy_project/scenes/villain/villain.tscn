@@ -292,6 +292,7 @@ active = true
 parameters/playback = SubResource( 3 )
 
 [node name="ShakeCamera" parent="." instance=ExtResource( 4 )]
+pause_mode = 2
 position = Vector2( 0, -19 )
 drag_margin_h_enabled = false
 drag_margin_v_enabled = false

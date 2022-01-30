@@ -30,7 +30,7 @@ func _input(event):
 		elif _actual_actor is Villain:
 			change_to_hero()
 		
-		GameEvents.emit_signal("call_shake", 0.25)
+		GameEvents.emit_signal("call_shake", 0.20)
 
 
 func change_to_villain() -> void:

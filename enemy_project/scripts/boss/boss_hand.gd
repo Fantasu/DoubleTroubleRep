@@ -4,6 +4,7 @@ class_name BossHand
 
 enum {STATE_ATACK, STATE_VULNERABLE}
 
+export (bool) var is_flipped = false
 var actual_state = STATE_ATACK
 var speed = 50
 var _velocity = Vector2.ZERO
@@ -24,10 +25,13 @@ func _ready():
 	randomize()
 	$StunArea.connect("body_entered", self, "on_actor_entered")
 	able_damage(false)
+	if is_flipped:
+		self.scale.x = -1
+	else:
+		self.scale.x = 1
 
 
 func _physics_process(delta):
-	
 	
 	match actual_state:
 		STATE_ATACK:
@@ -53,6 +57,7 @@ func _physics_process(delta):
 			
 			elif chegou:
 #				animação normal
+				$AnimationPlayer.play("normal")
 				able_stun(false)
 				cos_time += delta / 2
 				v_cos.x = cos(cos_time * freq) * amplitude
@@ -61,9 +66,11 @@ func _physics_process(delta):
 			
 			elif not chegou and target_pos != initial_pos:
 #				ataque animation
+				$AnimationPlayer.play("attack")
 				pass
 		STATE_VULNERABLE:
 #			animação vulneravel
+			$AnimationPlayer.play("vulnerable")
 			able_stun(false)
 			if int(self.global_position.distance_to(target_pos)) <= 3:
 				if not chegou:
@@ -87,6 +94,11 @@ func _physics_process(delta):
 	_velocity = move_and_slide(_velocity, Vector2.UP)
 
 
+func _input(event):
+	if event.is_action_pressed("ui_up"):
+		on_damage_taken(self)
+
+
 func direction_to_target(_target_position:Vector2):
 	if _target_position != initial_pos:
 		able_stun(true)
@@ -106,7 +118,7 @@ func on_actor_entered(body:Actor):
 		GameEvents.emit_signal("actor_stuned", body)
 
 
-func on_damage_taken(body:Actor):
+func on_damage_taken(body):
 #	animação dano tomado
 	able_damage(false)
 	life -= 1
@@ -124,4 +136,3 @@ func able_damage(_bool:bool) -> void:
 
 func able_stun(_bool:bool) -> void:
 	$StunArea.set_deferred("monitoring", _bool)
-

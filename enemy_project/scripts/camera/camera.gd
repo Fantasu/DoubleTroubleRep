@@ -9,7 +9,7 @@ var trauma_power = 2
 var noise_y = 0
 
 onready var noise = OpenSimplexNoise.new()
-onready var sfx = $AudioStreamPlayer
+onready var sfx_audios : Array = []
 
 
 func _ready():
@@ -18,14 +18,18 @@ func _ready():
 	noise.seed = randi()
 	noise.period = 4
 	noise.octaves = 2
+	for child in self.get_children():
+		if child is AudioStreamPlayer:
+			sfx_audios.append(child)
 
 
 func add_trauma(amount):
 	#this will add trauma to the current trauma, the higher more shake that exists.
 	trauma = min(trauma + amount, 1.0)
-	sfx.pitch_scale = rand_range(0.5, 2.7)
-	sfx.play()
-	
+	var music = sfx_audios[randi() % sfx_audios.size()]
+	music.pitch_scale = rand_range(0.5, 2.7)
+	music.play()
+
 
 func _process(delta):
 	if trauma:

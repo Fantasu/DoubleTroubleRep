@@ -1,31 +1,94 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/boss/boss_hand.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/boss/boss_hand.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 29.5, 30.5 )
 
 [sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 17, 29.5 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 10, 0.360733 )
+extents = Vector2( 31.5, 0.500001 )
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "normal"
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "vulnerable"
+length = 0.7
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 3, 5 ]
+}
 
 [node name="BossHand" type="KinematicBody2D"]
-scale = Vector2( 1.83219, 1.83219 )
 collision_layer = 256
 collision_mask = 4
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.499999, -0.5 )
 shape = SubResource( 4 )
 
-[node name="Icon" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -3.8147e-06, -1.90735e-06 )
-scale = Vector2( 0.3125, 0.3125 )
 texture = ExtResource( 2 )
+hframes = 6
 
 [node name="StunArea" type="Area2D" parent="."]
 collision_layer = 256
@@ -33,13 +96,21 @@ collision_mask = 3
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StunArea"]
+position = Vector2( 0, 0.5 )
 shape = SubResource( 2 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 0, 0.471 )
 collision_layer = 512
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 0, -9.63927 )
+position = Vector2( -0.5, -29.562 )
 shape = SubResource( 5 )
 disabled = true
 one_way_collision = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 6 )
+anims/attack = SubResource( 7 )
+anims/normal = SubResource( 8 )
+anims/vulnerable = SubResource( 9 )

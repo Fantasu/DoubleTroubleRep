@@ -4,7 +4,7 @@ onready var bars_animation_player = $BlackBars/AnimationPlayer
 
 
 func _ready():
-#	$BlackBars.visible = true
+	$BlackBars.visible = true
 	GameEvents.connect("call_bars", self, "on_bars_called")
 	
 	

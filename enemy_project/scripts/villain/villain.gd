@@ -37,7 +37,7 @@ func manage_animations():
 
 
 func _get_direction() -> float:
-	if (not animation_playback.get_current_node() in forbidden_animations) and active and not _down_atack:
+	if (not animation_playback.get_current_node() in forbidden_animations) and active:
 		return sign(Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"))
 	return 0.0
 

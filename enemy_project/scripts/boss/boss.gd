@@ -21,7 +21,7 @@ var _child : BossHand
 var _c_size 
 var _down_count = 0
 var _vulnerable = false
-
+var ended = false
 
 onready var _default_hero_porsuit_atack_count = hero_porsuit_atack_count
 onready var _default_vulnerable_timer = vulnerable_timer
@@ -135,17 +135,25 @@ func _physics_process(delta):
 			_vulnerable = true
 		
 		STATE_END:
-#			acaba aqui
-			pass
+			if ended == false:
+				GameEvents.emit_signal("call_shake", 1)
+				GameEvents.emit_signal("fadeout")
+				ended = true
+				yield(get_tree().create_timer(3.5), "timeout")
+				get_tree().change_scene("res://scenes/levels/credits.tscn")
 
 func random_child():
-	return _children[randi() % _c_size]
+	if _c_size <= 0:
+		return
+	return _children[randi() % _c_size] 
+
 
 func random_target():
 	return random_list[randi() % ran_list_size]
 
 
 func child_died(__child):
+	$AnimationPlayer.play("hurt")
 	_children.erase(__child)
 	_c_size = _children.size()
 	if _child == __child:

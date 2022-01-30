@@ -36,6 +36,15 @@ func manage_animations():
 		animation_playback.travel("down_attack")
 
 
+func pause_animation():
+	$AnimationTree.active = false
+
+
+func start_animation():
+	$AnimationTree.active = true
+
+
+
 func _get_direction() -> float:
 	if (not animation_playback.get_current_node() in forbidden_animations) and active and not _down_atack:
 		return sign(Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"))

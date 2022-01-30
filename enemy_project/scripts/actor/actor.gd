@@ -168,6 +168,7 @@ func air_state(delta):
 		_actual_state = STATE_MOVE
 
 func stuned_state(delta):
+	pause_animation()
 	self.modulate = Color.rebeccapurple
 	if not _inside_wind:
 		_velocity.x = max(abs(_velocity.x) - _ground_fric, 0.0) * sign(_velocity.x)
@@ -177,7 +178,16 @@ func stuned_state(delta):
 	if stuned_time < 0:
 		stuned_time = default_stuned
 		self.modulate = Color.white
+		start_animation()
 		_actual_state = STATE_MOVE
+
+
+func pause_animation():
+	pass
+
+
+func start_animation():
+	pass
 
 
 func setting_active_property(new_value):

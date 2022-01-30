@@ -27,7 +27,7 @@
 [ext_resource path="res://assets/sprites/tilemaps/ background2.png" type="Texture" id=25]
 [ext_resource path="res://assets/sprites/props/Props_Castelo.png" type="Texture" id=26]
 [ext_resource path="res://assets/music/air.ogg" type="AudioStream" id=27]
-[ext_resource path="res://scenes/levels/credits.tscn" type="PackedScene" id=28]
+[ext_resource path="res://scenes/levels/final_boss.tscn" type="PackedScene" id=28]
 
 [sub_resource type="TileSet" id=299]
 0/name = "background1.png 0"
@@ -3343,8 +3343,6 @@ collision_mask = 4
 
 [node name="Villain" parent="." instance=ExtResource( 1 )]
 position = Vector2( -621, 175 )
-collision_layer = 2
-collision_mask = 4
 
 [node name="Ui" parent="." instance=ExtResource( 3 )]
 begin = NodePath("Start")

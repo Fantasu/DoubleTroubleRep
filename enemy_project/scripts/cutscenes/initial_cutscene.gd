@@ -14,3 +14,7 @@ func go_to_first_level():
 
 func change_scene():
 	get_tree().change_scene_to(first_level)
+
+
+func virtual_start():
+	$AnimationPlayer.play("fadein")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=371 format=2]
+[gd_scene load_steps=373 format=2]
 
 [ext_resource path="res://scripts/gameplaystate/actor_manager_2.gd" type="Script" id=1]
 [ext_resource path="res://scenes/hero/hero.tscn" type="PackedScene" id=2]
@@ -2631,12 +2631,66 @@ tracks/1/keys = {
 "values": [ -20.0, -80.0 ]
 }
 
+[sub_resource type="Animation" id=407]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Boss:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Music:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=408]
+resource_name = "show"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Boss:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Music:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
 [node name="FinalBoss" type="Node2D"]
 script = ExtResource( 19 )
 
 [node name="Hero" parent="." instance=ExtResource( 2 )]
 position = Vector2( 151, 201 )
-collision_mask = 4
 
 [node name="Villain" parent="." instance=ExtResource( 3 )]
 position = Vector2( 252, 201 )
@@ -2677,9 +2731,9 @@ color = Color( 0.32549, 0.380392, 0.32549, 1 )
 pause_mode = 2
 stream = ExtResource( 14 )
 volume_db = -20.0
-autoplay = true
 
 [node name="Boss" type="Node2D" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 position = Vector2( -3, 61 )
 script = ExtResource( 16 )
 hero = NodePath("../Hero")
@@ -2688,6 +2742,7 @@ villain = NodePath("../Villain")
 [node name="BossHand" parent="Boss" instance=ExtResource( 15 )]
 position = Vector2( 58, 19 )
 z_index = -5
+amplitude = 100.0
 
 [node name="BossHand2" parent="Boss" instance=ExtResource( 15 )]
 position = Vector2( 115, 89 )
@@ -2702,6 +2757,7 @@ is_flipped = true
 position = Vector2( 334, 19 )
 z_index = -5
 is_flipped = true
+amplitude = 100.0
 
 [node name="Position2D" type="Position2D" parent="Boss"]
 position = Vector2( 200, 121.452 )
@@ -2756,5 +2812,10 @@ anims/fade = SubResource( 405 )
 anims/fadeout = SubResource( 406 )
 
 [node name="1" type="Sprite" parent="."]
-position = Vector2( 441, 200 )
+position = Vector2( -62, 180 )
 texture = ExtResource( 22 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "show"
+anims/RESET = SubResource( 407 )
+anims/show = SubResource( 408 )

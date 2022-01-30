@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/arabesque.mp3-198b3a69cbe0fe7dcf92a80f45e1e1ce.mp3str"
+
+[deps]
+
+source_file="res://assets/music/arabesque.mp3"
+dest_files=[ "res://.import/arabesque.mp3-198b3a69cbe0fe7dcf92a80f45e1e1ce.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

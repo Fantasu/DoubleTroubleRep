@@ -16,9 +16,9 @@ var _first_floor = true
 var life = 1
 onready var initial_pos = self.global_position
 onready var default_wait = wait_time
-onready var freq = randi() % 6 + 3
+onready var freq = randi() % 6 + 4
 var cos_time = 0.0
-var amplitude = 150
+export(float) var amplitude = 150
 var v_cos = Vector2.ZERO
 
 func _ready():
@@ -62,7 +62,7 @@ func _physics_process(delta):
 				cos_time += delta / 2
 				v_cos.x = cos(cos_time * freq) * amplitude
 				direction = v_cos.normalized()
-				initial_pos = self.global_position
+				initial_pos.x = self.global_position.x
 			
 			elif not chegou and target_pos != initial_pos:
 #				ataque animation

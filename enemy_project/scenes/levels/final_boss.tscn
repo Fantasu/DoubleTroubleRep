@@ -1,4 +1,4 @@
-[gd_scene load_steps=358 format=2]
+[gd_scene load_steps=360 format=2]
 
 [ext_resource path="res://scenes/gameplaystate/actor_manager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/hero/hero.tscn" type="PackedScene" id=2]
@@ -13,7 +13,9 @@
 [ext_resource path="res://assets/sprites/props/cave_props.png" type="Texture" id=11]
 [ext_resource path="res://assets/sprites/tilemaps/windcastle.png" type="Texture" id=12]
 [ext_resource path="res://assets/sprites/tilemaps/breakablepng.png" type="Texture" id=13]
-[ext_resource path="res://assets/music/battleThemeB.mp3" type="AudioStream" id=14]
+[ext_resource path="res://assets/music/acción.ogg" type="AudioStream" id=14]
+[ext_resource path="res://scenes/boss/boss_hand.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scripts/boss/boss.gd" type="Script" id=16]
 
 [sub_resource type="TileSet" id=394]
 0/name = "background1.png 0"
@@ -2520,8 +2522,6 @@ collision_mask = 4
 
 [node name="Villain" parent="." instance=ExtResource( 3 )]
 position = Vector2( 307, 148 )
-collision_layer = 2
-collision_mask = 4
 
 [node name="Background" type="TileMap" parent="."]
 z_index = -10
@@ -2574,3 +2574,24 @@ pause_mode = 2
 stream = ExtResource( 14 )
 volume_db = -30.0
 autoplay = true
+
+[node name="Boss" type="Node2D" parent="."]
+position = Vector2( -3, 61 )
+script = ExtResource( 16 )
+hero = NodePath("../Hero")
+villain = NodePath("../Villain")
+
+[node name="BossHand" parent="Boss" instance=ExtResource( 15 )]
+position = Vector2( 81, 49 )
+
+[node name="BossHand2" parent="Boss" instance=ExtResource( 15 )]
+position = Vector2( 159, 82 )
+
+[node name="BossHand3" parent="Boss" instance=ExtResource( 15 )]
+position = Vector2( 240, 80 )
+
+[node name="BossHand4" parent="Boss" instance=ExtResource( 15 )]
+position = Vector2( 304, 46 )
+
+[node name="Position2D" type="Position2D" parent="Boss"]
+position = Vector2( 196, 106 )

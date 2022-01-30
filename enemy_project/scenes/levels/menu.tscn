@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/levels/menu.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/cf2e351d-87be-455b-8d13-ce2016b2767e.png" type="Texture" id=2]
 [ext_resource path="res://scenes/cutscenes/initial_cutscene.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/music/arabesque.mp3" type="AudioStream" id=4]
+[ext_resource path="res://assets/sfx/bligrave.wav" type="AudioStream" id=5]
 
 [sub_resource type="StyleBoxLine" id=6]
 color = Color( 1, 1, 1, 1 )
@@ -174,6 +175,10 @@ text = "Quit"
 stream = ExtResource( 4 )
 volume_db = -30.0
 autoplay = true
+
+[node name="AudioBlip" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -6.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 7 )

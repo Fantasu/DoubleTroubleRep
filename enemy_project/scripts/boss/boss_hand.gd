@@ -94,11 +94,6 @@ func _physics_process(delta):
 	_velocity = move_and_slide(_velocity, Vector2.UP)
 
 
-func _input(event):
-	if event.is_action_pressed("ui_up"):
-		on_damage_taken(self)
-
-
 func direction_to_target(_target_position:Vector2):
 	if _target_position != initial_pos:
 		able_stun(true)

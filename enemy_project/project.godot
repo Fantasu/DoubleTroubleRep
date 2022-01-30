@@ -63,7 +63,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Enemy-y-y-y"
-run/main_scene="res://scenes/levels/first_level.tscn"
+run/main_scene="res://scenes/levels/menu.tscn"
 config/icon="res://icon.png"
 
 [autoload]

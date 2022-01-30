@@ -13,7 +13,9 @@ func change_scene():
 	get_tree().change_scene_to(cutscene)
 
 func start_game():
+	$AudioBlip.play()
 	$AnimationPlayer.play("play")
 	
 func quit_game():
+	$AudioBlip.play()
 	get_tree().quit()

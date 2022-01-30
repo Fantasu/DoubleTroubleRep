@@ -14,6 +14,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/actor/actor.gd"
 }, {
+"base": "Node",
+"class": "ActorManager",
+"language": "GDScript",
+"path": "res://scripts/gameplaystate/actor_manager.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "BossHand",
+"language": "GDScript",
+"path": "res://scripts/boss/boss_hand.gd"
+}, {
 "base": "Actor",
 "class": "Hero",
 "language": "GDScript",
@@ -41,6 +51,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Actor": "",
+"ActorManager": "",
+"BossHand": "",
 "Hero": "",
 "Ladder": "",
 "Torch": "",
@@ -60,7 +72,6 @@ GameEvents="*res://scenes/autoloads/gameevents.gd"
 
 [debug]
 
-settings/stdout/print_fps=true
 gdscript/warnings/return_value_discarded=false
 
 [display]

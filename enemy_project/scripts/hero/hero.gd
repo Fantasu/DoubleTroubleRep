@@ -12,7 +12,7 @@ func _ready():
 	$ShakeCamera.current = active
 
 
-func manage_animations():
+func manage_animations() -> void:
 	if _actual_state == STATE_STAND:
 		animation_playback.travel("stand")
 		$Flip/WalkParticle.emitting = false
@@ -24,8 +24,10 @@ func manage_animations():
 	elif _actual_state == STATE_AIR:
 		if (_velocity.y > 0 and _was_jumped) or (_fall_distance > min_jump_size):
 			animation_playback.travel('fall')
+			damage_colliding()
 		elif _velocity.y < 0 :
 			animation_playback.travel('jump')
+			
 		
 		$Flip/WalkParticle.emitting = false
 		
@@ -38,14 +40,22 @@ func manage_animations():
 		animation_playback.travel("attack")
 
 
-func jump():
+func damage_colliding() -> void:
+	for child in $DamageRays.get_children():
+		if child.is_colliding():
+			var hand = child.get_collider().owner
+			if hand.has_method("on_damage_taken"):
+				hand.on_damage_taken(self)
+
+
+func jump() -> void:
 	if (not animation_playback.get_current_node() in forbidden_animations) and active:
 		jump_sfx.play()
 		_velocity.y = -jump_force
 		_was_jumped = true
 
 
-func torch_action(body):
+func torch_action(body) -> void:
 	if body.is_in_group("spiderweb"):
 		#body.playanimation.....
 		body.queue_free()
@@ -71,7 +81,7 @@ func _input(event):
 			enter_in_ladder()
 
 
-func setting_active_property(new_value):
+func setting_active_property(new_value) -> void:
 	active = new_value
 	$ShakeCamera.current = active
 	
@@ -82,14 +92,14 @@ func one_way_colliding():
 			return child.get_collider().owner
 
 
-func enter_in_ladder():
+func enter_in_ladder() -> void:
 	_velocity.x = 0
 	global_position.x = _ladder.global_position.x
 	gravity = 0
 	_actual_state = STATE_CLIMBING
 
 
-func climbing_state(_delta):
+func climbing_state(_delta) -> void:
 	var _climb_direc = up_down()
 	self._velocity.y = _climb_direc * climb_speed
 	

@@ -11,7 +11,7 @@ func _ready():
 
 func on_actor_enter(body):
 	if body is Actor:
-		actor_count += 2
+		actor_count += 1
 		
 	if actor_count == 2:
 		GameEvents.emit_signal("fadeout")

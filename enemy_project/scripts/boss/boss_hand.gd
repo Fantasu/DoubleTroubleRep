@@ -16,7 +16,7 @@ var _first_floor = true
 var life = 1
 onready var initial_pos = self.global_position
 onready var default_wait = wait_time
-onready var freq = randi() % 6 + 4
+export (int) var freq = 3
 var cos_time = 0.0
 export(float) var amplitude = 150
 var v_cos = Vector2.ZERO
@@ -30,6 +30,10 @@ func _ready():
 	else:
 		self.scale.x = 1
 
+#
+#func _input(event):
+#	if event.is_action("jump"):
+#		on_damage_taken(self)
 
 func _physics_process(delta):
 	

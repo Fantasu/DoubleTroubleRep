@@ -35,10 +35,6 @@ func manage_animations() -> void:
 		animation_playback.travel('climbing')
 		$Flip/WalkParticle.emitting = false
 		
-	
-	if Input.is_action_pressed("action") && is_on_floor() && active == true:
-		animation_playback.travel("attack")
-
 
 func pause_animation():
 	$AnimationTree.active = false

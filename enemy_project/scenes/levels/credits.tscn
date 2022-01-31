@@ -16,7 +16,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 20 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 44, 60 ), Vector2( 44, -1150 ) ]
+"values": [ Vector2( 44, 120 ), Vector2( 44, -1175 ) ]
 }
 
 [node name="Credits" type="Control"]
@@ -44,8 +44,9 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="CenterContainer"]
 margin_left = 44.0
+margin_top = -1175.0
 margin_right = 340.0
-margin_bottom = 1239.0
+margin_bottom = 118.0
 custom_fonts/font = ExtResource( 1 )
 text = "
 
@@ -59,7 +60,7 @@ text = "
 
 
 
-Diretor
+Game Designer
 
 Bruno Daniel
 
@@ -104,6 +105,9 @@ Lonelyhood - yd
 
 Victory1 - The Cynic Project
 
+Arabesque - Chris Janowiak
+
+Small Loss - HorrorPen
 
 
 
@@ -114,8 +118,8 @@ Victory1 - The Cynic Project
 
 
 
-
-Obrigado por Jogar."
+Obrigado por Jogar.
+Feito para Game Jaaj 7"
 align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

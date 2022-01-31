@@ -2073,12 +2073,9 @@ villain = NodePath("../Villain")
 
 [node name="Hero" parent="." instance=ExtResource( 11 )]
 position = Vector2( -321, 205 )
-collision_mask = 4
 
 [node name="Villain" parent="." instance=ExtResource( 9 )]
 position = Vector2( -280, 207 )
-collision_layer = 2
-collision_mask = 4
 
 [node name="Ui" parent="." instance=ExtResource( 8 )]
 begin = NodePath("Start")
@@ -2133,7 +2130,7 @@ activate_nodepaths_list = [ NodePath("../../Doors/Door2") ]
 position = Vector2( 301, 111 )
 
 [node name="Torch2" parent="Torchs/TorchPuzzle2" instance=ExtResource( 12 )]
-position = Vector2( 97, 86 )
+position = Vector2( 96, 91 )
 
 [node name="Torch3" parent="Torchs/TorchPuzzle2" instance=ExtResource( 12 )]
 position = Vector2( 174, 123 )

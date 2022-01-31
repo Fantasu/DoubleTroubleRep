@@ -50,6 +50,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [ -80.0 ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Label:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "fade"
@@ -92,6 +104,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [ -30.0, -80.0 ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Label:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "fadein"
@@ -133,6 +157,18 @@ tracks/2/keys = {
 "args": [  ],
 "method": "go_to_first_level"
 } ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Label:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -196,6 +232,14 @@ margin_bottom = 180.0
 texture = ExtResource( 5 )
 stretch_mode = 3
 
+[node name="ColorRect3" type="ColorRect" parent="CenterContainer/TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.627451, 0, 0, 0.180392 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
 volume_db = -80.0
@@ -217,3 +261,17 @@ anims/RESET = SubResource( 1 )
 anims/fade = SubResource( 3 )
 anims/fadein = SubResource( 2 )
 anims/start = SubResource( 4 )
+
+[node name="Label" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_top = 0.917
+anchor_right = 0.992
+anchor_bottom = 0.986
+margin_left = 270.0
+margin_top = -0.0720062
+margin_right = 0.071991
+margin_bottom = 0.0239868
+text = "Press E/X to Skip"
+__meta__ = {
+"_edit_use_anchors_": false
+}

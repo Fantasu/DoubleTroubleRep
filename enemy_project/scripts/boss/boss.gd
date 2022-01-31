@@ -1,5 +1,7 @@
 extends Node2D
 
+signal death()
+
 enum {STATE_IDLE, STATE_HERO_PORSUIT, STATE_DOWN_ATACK, STATE_VULNERABLE, STATE_END}
 
 export(NodePath) onready var hero = get_node(hero)
@@ -60,7 +62,7 @@ func _physics_process(delta):
 				
 				var atack_states = [STATE_IDLE, STATE_HERO_PORSUIT, STATE_DOWN_ATACK]
 				var new_state = randi() % atack_states.size()
-				if new_state == actual_state or (_c_size == 1 and new_state == STATE_DOWN_ATACK) or new_state == STATE_DOWN_ATACK:
+				if new_state == actual_state or (_c_size == 1 and new_state == STATE_DOWN_ATACK):
 					return
 				idle_timer = _default_idle_timer
 				if new_state == STATE_HERO_PORSUIT:
@@ -136,12 +138,10 @@ func _physics_process(delta):
 		
 		STATE_END:
 			if ended == false:
-				GameEvents.emit_signal("call_shake", 1)
-				GameEvents.emit_signal("fadeout")
+				emit_signal("death")
 				ended = true
-				yield(get_tree().create_timer(3.5), "timeout")
-				get_tree().change_scene("res://scenes/levels/credits.tscn")
-
+			
+			
 func random_child():
 	if _c_size <= 0:
 		return
